@@ -16,31 +16,26 @@
 
   
   <link rel="icon" type="image/svg+xml"
-        href='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"><rect width="100%%" height="100%%" rx="12" fill="%%232c3e50"/><text x="50%%" y="54%%" dominant-baseline="middle" text-anchor="middle" font-family="Inter,Arial" font-size="34" fill="white">IT</text></svg>'>
+        href='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"><rect width="100%" height="100%" rx="12" fill="%232c3e50"/><text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" font-family="Inter,Arial" font-size="28" fill="white">ZP</text></svg>'>
   
-  
-  
-  
-  <link rel="manifest" href="site.webmanifest">
 
   <style>
     :root {
-      /* Палитра (светлая) — можешь менять под свой бренд */
+      /* Светлая тема */
       --bg: #f6f7f9;
       --text: #222;
       --muted: #55607099;
       --card-bg: #fff;
-      --accent: #2c3e50;     /* основной акцент */
-      --accent-weak: #3f5368;/* для ссылок/наведений */
+      --accent: #2c3e50;
+      --accent-weak: #3f5368;
       --elev: 0 2px 6px rgba(0,0,0,0.08);
       --radius: 12px;
 
       --link: var(--accent);
       --link-hover: #4b6b8a;
     }
-
     body.dark {
-      /* Палитра (тёмная) */
+      /* Тёмная тема */
       --bg: #1e1e1e;
       --text: #eaeaea;
       --muted: #cfd6df99;
@@ -53,7 +48,6 @@
       --link-hover: #a8ddff;
     }
 
-    /* Базовая стилизация */
     html { scroll-behavior: smooth; }
     body {
       font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
@@ -71,13 +65,10 @@
       text-align: center;
       transition: background .3s;
     }
-    header h1 { margin: 0; font-size: 2.6rem; font-weight: 700; letter-spacing: 0.2px; }
-    header p { margin: 10px 0 0; font-weight: 500; opacity: .95; }
+    header h1 { margin: 0; font-size: 2.6rem; font-weight: 700; letter-spacing: .2px; }
+    header p  { margin: 10px 0 0; font-weight: 500; opacity: .95; }
 
-    nav {
-      text-align: center;
-      margin: 20px 0 10px;
-    }
+    nav { text-align: center; margin: 20px 0 10px; }
     nav a {
       display: inline-block;
       margin: 0 14px;
@@ -90,30 +81,14 @@
     }
     nav a:hover { color: var(--link-hover); border-color: var(--link-hover); }
 
-    section {
-      max-width: 980px;
-      margin: auto;
-      padding: 44px 20px;
-    }
-
-    h2 {
-      text-align: center;
-      margin: 0 0 20px;
-      color: var(--accent);
-      font-weight: 700;
-      letter-spacing: .2px;
-    }
-    p.lead {
-      text-align: center;
-      color: var(--muted);
-      margin-top: -6px;
-    }
+    section { max-width: 980px; margin: auto; padding: 44px 20px; }
+    h2 { text-align: center; margin: 0 0 20px; color: var(--accent); font-weight: 700; }
+    p.lead { text-align: center; color: var(--muted); margin-top: -6px; }
 
     .portfolio {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 22px;
-      margin-top: 16px;
+      gap: 22px; margin-top: 16px;
     }
     .card {
       background: var(--card-bg);
@@ -123,7 +98,7 @@
       transition: background .3s, transform .2s, box-shadow .3s;
     }
     .card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,.08); }
-    .card h3 { margin-top: 0; margin-bottom: 8px; }
+    .card h3 { margin: 0 0 8px; }
     .card p { margin: 0; color: var(--muted); }
 
     footer {
@@ -138,59 +113,37 @@
 
     /* Кнопка темы */
     .theme-toggle {
-      position: fixed;
-      top: 20px; right: 20px;
-      background: var(--accent);
-      color: white;
-      border: none;
-      border-radius: 999px;
-      padding: 10px 14px;
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: 600;
+      position: fixed; top: 20px; right: 20px;
+      background: var(--accent); color: white;
+      border: none; border-radius: 999px;
+      padding: 10px 14px; cursor: pointer;
+      font-size: 14px; font-weight: 600;
       transition: background .3s, transform .1s;
-      box-shadow: var(--elev);
-      z-index: 1000;
+      box-shadow: var(--elev); z-index: 1000;
     }
     .theme-toggle:active { transform: scale(.98); }
 
-    /* Параллакс-блоки */
+    /* Параллакс-блоки (из локальной папки images/) */
     .parallax {
       height: 420px;
       background-attachment: fixed;
       background-position: center;
       background-repeat: no-repeat;
       background-size: cover;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      text-shadow: 0 2px 6px rgba(0,0,0,0.6);
-      font-size: 2rem;
-      position: relative;
-      overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      color: white; text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+      font-size: 2rem; position: relative; overflow: hidden;
     }
     .parallax::after {
-      content: "";
-      position: absolute; inset: 0;
+      content: ""; position: absolute; inset: 0;
       background: linear-gradient(to bottom, rgba(0,0,0,0.18), rgba(0,0,0,0.35));
     }
     .parallax > span { position: relative; z-index: 1; font-weight: 700; }
-
-    /* Мобильные устройства: отключаем fixed (лучше производительность) */
-    @media (max-width: 1024px) {
-      .parallax { background-attachment: scroll; }
-    }
+    @media (max-width: 1024px) { .parallax { background-attachment: scroll; } }
 
     /* Анимации появления */
-    .reveal {
-      opacity: 0;
-      transform: translateY(18px);
-      transition: opacity .6s ease, transform .6s ease;
-      will-change: opacity, transform;
-    }
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
     .reveal.visible { opacity: 1; transform: none; }
-
     @media (prefers-reduced-motion: reduce) {
       * { transition: none !important; }
       .reveal { opacity: 1 !important; transform: none !important; }
@@ -201,10 +154,10 @@
 <body>
   <button class="theme-toggle" onclick="toggleTheme()">🌙 Тёмная тема</button>
 
-<header class="reveal">
-  <h1>Златислава Поддубная</h1>
-  <p>Project Manager</p>
-</header>
+  <header class="reveal">
+    <h1>Златислава Поддубная</h1>
+    <p>Project Manager</p>
+  </header>
 
   <nav class="reveal" data-delay="80">
     <a href="#about">Обо мне</a>
@@ -214,21 +167,19 @@
   </nav>
 
   
-  <div class="parallax reveal"
-       style="background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1920&q=80');">
+  <div class="parallax reveal" style="background-image: url('images/welcome.jpg');">
     <span>Добро пожаловать в моё портфолио</span>
   </div>
 
   <section id="about" class="reveal">
     <h2 class="reveal">Обо мне</h2>
     <p class="lead reveal" data-delay="80">
-      Краткий рассказ о вашем опыте и компетенциях. Опишите сильные стороны, навыки и цели.
+      Кратко расскажите о своём опыте, доменных знаниях и ключевых достижениях в управлении проектами.
     </p>
   </section>
 
   
-  <div class="parallax reveal"
-       style="background-image: url('https://images.unsplash.com/photo-1581092335305-9b6f0b1b5f2a?auto=format&fit=crop&w=1920&q=80');">
+  <div class="parallax reveal" style="background-image: url('images/projects.jpg');">
     <span>Мои проекты</span>
   </div>
 
@@ -237,22 +188,21 @@
     <div class="portfolio">
       <div class="card reveal" data-delay="0">
         <h3>Проект 1</h3>
-        <p>Описание проекта.</p>
+        <p>Краткое описание, роль, результаты, использованные методологии/инструменты.</p>
       </div>
       <div class="card reveal" data-delay="80">
         <h3>Проект 2</h3>
-        <p>Описание проекта.</p>
+        <p>Ключевые метрики успеха и ценность для бизнеса.</p>
       </div>
       <div class="card reveal" data-delay="160">
         <h3>Проект 3</h3>
-        <p>Описание проекта.</p>
+        <p>Ссылки на демо/репозиторий/кейс-стади (если есть).</p>
       </div>
     </div>
   </section>
 
   
-  <div class="parallax reveal"
-       style="background-image: url('https://images.unsplash.com/photo-1537432376769-00a1f1aa1a1a?auto=format&fit=crop&w=1920&q=80');">
+  <div class="parallax reveal" style="background-image: url('images/resume.jpg');">
     <span>Моё резюме</span>
   </div>
 
@@ -265,8 +215,7 @@
   </section>
 
   
-  <div class="parallax reveal"
-       style="background-image: url('https://images.unsplash.com/photo-1527430253228-e93688616381?auto=format&fit=crop&w=1920&q=80');">
+  <div class="parallax reveal" style="background-image: url('images/contacts.jpg');">
     <span>Контакты</span>
   </div>
 
@@ -280,7 +229,7 @@
   </section>
 
   <footer class="reveal">
-    <p>© 2025 Имя Фамилия</p>
+    <p>© 2025 Златислава Поддубная</p>
   </footer>
 
   <script>
@@ -321,5 +270,3 @@
   </script>
 </body>
 </html>
-
-
