@@ -1,37 +1,162 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <title>Портфолио – Златислава Поддубная</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <title>Портфолио – Имя Фамилия</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  
+  <meta name="theme-color" content="#2c3e50" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1e1e1e" media="(prefers-color-scheme: dark)">
+
+  
+  <link rel="icon" type="image/svg+xml"
+        href='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"><rect width="100%%" height="100%%" rx="12" fill="%%232c3e50"/><text x="50%%" y="54%%" dominant-baseline="middle" text-anchor="middle" font-family="Inter,Arial" font-size="34" fill="white">IT</text></svg>'>
+  
+  
+  
+  
+  <link rel="manifest" href="site.webmanifest">
+
   <style>
     :root {
+      /* Палитра (светлая) — можешь менять под свой бренд */
       --bg: #f6f7f9;
-      --text: #333;
+      --text: #222;
+      --muted: #55607099;
       --card-bg: #fff;
-      --accent: #2c3e50;
+      --accent: #2c3e50;     /* основной акцент */
+      --accent-weak: #3f5368;/* для ссылок/наведений */
+      --elev: 0 2px 6px rgba(0,0,0,0.08);
+      --radius: 12px;
+
+      --link: var(--accent);
+      --link-hover: #4b6b8a;
     }
 
     body.dark {
+      /* Палитра (тёмная) */
       --bg: #1e1e1e;
       --text: #eaeaea;
+      --muted: #cfd6df99;
       --card-bg: #2a2a2a;
       --accent: #4db6ff;
+      --accent-weak: #77c8ff;
+      --elev: 0 2px 10px rgba(0,0,0,0.35);
+
+      --link: var(--accent);
+      --link-hover: #a8ddff;
     }
 
+    /* Базовая стилизация */
+    html { scroll-behavior: smooth; }
     body {
-      font-family: "Segoe UI", Arial, sans-serif;
+      font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       margin: 0;
-      padding: 0;
       background: var(--bg);
       color: var(--text);
-      line-height: 1.6;
-      transition: background 0.3s, color 0.3s;
-      scroll-behavior: smooth; /* плавная прокрутка */
+      line-height: 1.65;
+      transition: background .3s, color .3s;
     }
 
+    header {
+      background: var(--accent);
+      color: #fff;
+      padding: 56px 20px;
+      text-align: center;
+      transition: background .3s;
+    }
+    header h1 { margin: 0; font-size: 2.6rem; font-weight: 700; letter-spacing: 0.2px; }
+    header p { margin: 10px 0 0; font-weight: 500; opacity: .95; }
+
+    nav {
+      text-align: center;
+      margin: 20px 0 10px;
+    }
+    nav a {
+      display: inline-block;
+      margin: 0 14px;
+      color: var(--link);
+      text-decoration: none;
+      font-weight: 600;
+      padding-bottom: 2px;
+      border-bottom: 2px solid transparent;
+      transition: color .25s, border-color .25s;
+    }
+    nav a:hover { color: var(--link-hover); border-color: var(--link-hover); }
+
+    section {
+      max-width: 980px;
+      margin: auto;
+      padding: 44px 20px;
+    }
+
+    h2 {
+      text-align: center;
+      margin: 0 0 20px;
+      color: var(--accent);
+      font-weight: 700;
+      letter-spacing: .2px;
+    }
+    p.lead {
+      text-align: center;
+      color: var(--muted);
+      margin-top: -6px;
+    }
+
+    .portfolio {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 22px;
+      margin-top: 16px;
+    }
+    .card {
+      background: var(--card-bg);
+      padding: 20px;
+      border-radius: var(--radius);
+      box-shadow: var(--elev);
+      transition: background .3s, transform .2s, box-shadow .3s;
+    }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,.08); }
+    .card h3 { margin-top: 0; margin-bottom: 8px; }
+    .card p { margin: 0; color: var(--muted); }
+
+    footer {
+      background: var(--accent);
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+      transition: background .3s;
+    }
+    footer a { color: #ecf0f1; text-decoration: none; }
+
+    /* Кнопка темы */
+    .theme-toggle {
+      position: fixed;
+      top: 20px; right: 20px;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 999px;
+      padding: 10px 14px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      transition: background .3s, transform .1s;
+      box-shadow: var(--elev);
+      z-index: 1000;
+    }
+    .theme-toggle:active { transform: scale(.98); }
+
+    /* Параллакс-блоки */
     .parallax {
-      height: 400px;
+      height: 420px;
       background-attachment: fixed;
       background-position: center;
       background-repeat: no-repeat;
@@ -42,109 +167,46 @@
       color: white;
       text-shadow: 0 2px 6px rgba(0,0,0,0.6);
       font-size: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .parallax::after {
+      content: "";
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.18), rgba(0,0,0,0.35));
+    }
+    .parallax > span { position: relative; z-index: 1; font-weight: 700; }
+
+    /* Мобильные устройства: отключаем fixed (лучше производительность) */
+    @media (max-width: 1024px) {
+      .parallax { background-attachment: scroll; }
     }
 
-    header {
-      background: var(--accent);
-      color: white;
-      padding: 50px 20px;
-      text-align: center;
-      transition: background 0.3s;
+    /* Анимации появления */
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity .6s ease, transform .6s ease;
+      will-change: opacity, transform;
     }
+    .reveal.visible { opacity: 1; transform: none; }
 
-    header h1 {
-      margin: 0;
-      font-size: 2.5rem;
-    }
-
-    header p {
-      font-size: 1.2rem;
-      margin-top: 10px;
-    }
-
-    nav {
-      text-align: center;
-      margin: 20px 0;
-    }
-
-    nav a {
-      margin: 0 15px;
-      color: var(--accent);
-      text-decoration: none;
-      font-weight: bold;
-      transition: color 0.3s;
-    }
-
-    section {
-      max-width: 900px;
-      margin: auto;
-      padding: 40px 20px;
-    }
-
-    h2 {
-      text-align: center;
-      margin-bottom: 20px;
-      color: var(--accent);
-    }
-
-    .portfolio {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 20px;
-    }
-
-    .card {
-      background: var(--card-bg);
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      transition: background 0.3s, transform 0.2s;
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-    }
-
-    footer {
-      background: var(--accent);
-      color: white;
-      text-align: center;
-      padding: 20px;
-      margin-top: 40px;
-      transition: background 0.3s;
-    }
-
-    footer a {
-      color: #ecf0f1;
-      margin: 0 10px;
-      text-decoration: none;
-    }
-
-    .theme-toggle {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: var(--accent);
-      color: white;
-      border: none;
-      border-radius: 20px;
-      padding: 8px 15px;
-      cursor: pointer;
-      font-size: 14px;
-      transition: background 0.3s;
-      z-index: 1000;
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; }
+      .reveal { opacity: 1 !important; transform: none !important; }
+      .parallax { background-attachment: scroll; }
     }
   </style>
 </head>
 <body>
   <button class="theme-toggle" onclick="toggleTheme()">🌙 Тёмная тема</button>
 
-  <header>
-    <h1>Златислава Поддубная</h1>
-    <p>Prodgect manager</p>
+  <header class="reveal">
+    <h1>Имя Фамилия</h1>
+    <p>Frontend / Backend / Data Engineer</p>
   </header>
 
-  <nav>
+  <nav class="reveal" data-delay="80">
     <a href="#about">Обо мне</a>
     <a href="#portfolio">Портфолио</a>
     <a href="#resume">Резюме</a>
@@ -152,35 +214,36 @@
   </nav>
 
   
-  <div class="parallax" style="background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1920&q=80');">
-    Добро пожаловать в моё портфолио
+  <div class="parallax reveal"
+       style="background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1920&q=80');">
+    <span>Добро пожаловать в моё портфолио</span>
   </div>
 
-  <section id="about">
-    <h2>Обо мне</h2>
-    <p>
-      Краткий рассказ о вашем опыте и компетенциях.  
-      Опишите сильные стороны, навыки и цели.  
+  <section id="about" class="reveal">
+    <h2 class="reveal">Обо мне</h2>
+    <p class="lead reveal" data-delay="80">
+      Краткий рассказ о вашем опыте и компетенциях. Опишите сильные стороны, навыки и цели.
     </p>
   </section>
 
   
-  <div class="parallax" style="background-image: url('https://images.unsplash.com/photo-1581092335305-9b6f0b1b5f2a?auto=format&fit=crop&w=1920&q=80');">
-    Мои проекты
+  <div class="parallax reveal"
+       style="background-image: url('https://images.unsplash.com/photo-1581092335305-9b6f0b1b5f2a?auto=format&fit=crop&w=1920&q=80');">
+    <span>Мои проекты</span>
   </div>
 
-  <section id="portfolio">
-    <h2>Портфолио</h2>
+  <section id="portfolio" class="reveal">
+    <h2 class="reveal">Портфолио</h2>
     <div class="portfolio">
-      <div class="card">
+      <div class="card reveal" data-delay="0">
         <h3>Проект 1</h3>
         <p>Описание проекта.</p>
       </div>
-      <div class="card">
+      <div class="card reveal" data-delay="80">
         <h3>Проект 2</h3>
         <p>Описание проекта.</p>
       </div>
-      <div class="card">
+      <div class="card reveal" data-delay="160">
         <h3>Проект 3</h3>
         <p>Описание проекта.</p>
       </div>
@@ -188,47 +251,73 @@
   </section>
 
   
-  <div class="parallax" style="background-image: url('https://images.unsplash.com/photo-1537432376769-00a1f1aa1a1a?auto=format&fit=crop&w=1920&q=80');">
-    Моё резюме
+  <div class="parallax reveal"
+       style="background-image: url('https://images.unsplash.com/photo-1537432376769-00a1f1aa1a1a?auto=format&fit=crop&w=1920&q=80');">
+    <span>Моё резюме</span>
   </div>
 
-  <section id="resume">
-    <h2>Резюме</h2>
-    <p style="text-align:center;">
-      📄 <a href="resume.pdf" download>Скачать резюме (PDF)</a>  
+  <section id="resume" class="reveal">
+    <h2 class="reveal">Резюме</h2>
+    <p style="text-align:center;" class="reveal" data-delay="80">
+      📄 <a href="resume.pdf" download>Скачать резюме (PDF)</a>
       или <a href="resume.pdf" target="_blank">Посмотреть онлайн</a>
     </p>
   </section>
 
   
-  <div class="parallax" style="background-image: url('https://images.unsplash.com/photo-1527430253228-e93688616381?auto=format&fit=crop&w=1920&q=80');">
-    Контакты
+  <div class="parallax reveal"
+       style="background-image: url('https://images.unsplash.com/photo-1527430253228-e93688616381?auto=format&fit=crop&w=1920&q=80');">
+    <span>Контакты</span>
   </div>
 
-  <section id="contacts">
-    <h2>Контакты</h2>
-    <p>
-      📧 email@example.com <br>
-      📱 +7 (999) 123-45-67 <br>
+  <section id="contacts" class="reveal">
+    <h2 class="reveal">Контакты</h2>
+    <p class="reveal" data-delay="80">
+      📧 email@example.com <br />
+      📱 +7 (999) 123-45-67 <br />
       💼 <a href="#">LinkedIn</a> | <a href="#">GitHub</a>
     </p>
   </section>
 
-  <footer>
+  <footer class="reveal">
     <p>© 2025 Имя Фамилия</p>
   </footer>
 
   <script>
+    // Тема с запоминанием
+    const THEME_KEY = 'site-theme';
+    (function initTheme() {
+      const saved = localStorage.getItem(THEME_KEY);
+      if (saved === 'dark') document.body.classList.add('dark');
+      updateThemeButton();
+    })();
     function toggleTheme() {
-      document.body.classList.toggle("dark");
-      const btn = document.querySelector(".theme-toggle");
-      if (document.body.classList.contains("dark")) {
-        btn.textContent = "☀️ Светлая тема";
-      } else {
-        btn.textContent = "🌙 Тёмная тема";
-      }
+      document.body.classList.toggle('dark');
+      localStorage.setItem(THEME_KEY, document.body.classList.contains('dark') ? 'dark' : 'light');
+      updateThemeButton();
+    }
+    function updateThemeButton() {
+      const btn = document.querySelector('.theme-toggle');
+      btn.textContent = document.body.classList.contains('dark') ? '☀️ Светлая тема' : '🌙 Тёмная тема';
+    }
+
+    // Анимации появления
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!prefersReduced && 'IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const el = entry.target;
+            const delay = parseInt(el.getAttribute('data-delay') || '0', 10);
+            setTimeout(() => el.classList.add('visible'), delay);
+            io.unobserve(el);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -10% 0px' });
+      document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    } else {
+      document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
     }
   </script>
 </body>
 </html>
-
