@@ -17,67 +17,34 @@
   
   <link rel="icon" type="image/svg+xml"
         href='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"><rect width="100%" height="100%" rx="12" fill="%232c3e50"/><text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" font-family="Inter,Arial" font-size="28" fill="white">ZP</text></svg>'>
-  
 
   <style>
     :root {
-      /* Светлая тема */
-      --bg: #f6f7f9;
-      --text: #222;
-      --muted: #55607099;
-      --card-bg: #fff;
-      --accent: #2c3e50;
-      --accent-weak: #3f5368;
-      --elev: 0 2px 6px rgba(0,0,0,0.08);
-      --radius: 12px;
-
-      --link: var(--accent);
-      --link-hover: #4b6b8a;
+      --bg: #f6f7f9; --text: #222; --muted: #55607099; --card-bg: #fff;
+      --accent: #2c3e50; --accent-weak: #3f5368; --elev: 0 2px 6px rgba(0,0,0,0.08);
+      --radius: 12px; --link: var(--accent); --link-hover: #4b6b8a;
     }
     body.dark {
-      /* Тёмная тема */
-      --bg: #1e1e1e;
-      --text: #eaeaea;
-      --muted: #cfd6df99;
-      --card-bg: #2a2a2a;
-      --accent: #4db6ff;
-      --accent-weak: #77c8ff;
-      --elev: 0 2px 10px rgba(0,0,0,0.35);
-
-      --link: var(--accent);
-      --link-hover: #a8ddff;
+      --bg: #1e1e1e; --text: #eaeaea; --muted: #cfd6df99; --card-bg: #2a2a2a;
+      --accent: #4db6ff; --accent-weak: #77c8ff; --elev: 0 2px 10px rgba(0,0,0,0.35);
+      --link: var(--accent); --link-hover: #a8ddff;
     }
 
     html { scroll-behavior: smooth; }
     body {
       font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      margin: 0;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.65;
+      margin: 0; background: var(--bg); color: var(--text); line-height: 1.65;
       transition: background .3s, color .3s;
     }
 
-    header {
-      background: var(--accent);
-      color: #fff;
-      padding: 56px 20px;
-      text-align: center;
-      transition: background .3s;
-    }
+    header { background: var(--accent); color: #fff; padding: 56px 20px; text-align: center; transition: background .3s; }
     header h1 { margin: 0; font-size: 2.6rem; font-weight: 700; letter-spacing: .2px; }
     header p  { margin: 10px 0 0; font-weight: 500; opacity: .95; }
 
     nav { text-align: center; margin: 20px 0 10px; }
     nav a {
-      display: inline-block;
-      margin: 0 14px;
-      color: var(--link);
-      text-decoration: none;
-      font-weight: 600;
-      padding-bottom: 2px;
-      border-bottom: 2px solid transparent;
-      transition: color .25s, border-color .25s;
+      display: inline-block; margin: 0 14px; color: var(--link); text-decoration: none; font-weight: 600;
+      padding-bottom: 2px; border-bottom: 2px solid transparent; transition: color .25s, border-color .25s;
     }
     nav a:hover { color: var(--link-hover); border-color: var(--link-hover); }
 
@@ -85,69 +52,74 @@
     h2 { text-align: center; margin: 0 0 20px; color: var(--accent); font-weight: 700; }
     p.lead { text-align: center; color: var(--muted); margin-top: -6px; }
 
-    .portfolio {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 22px; margin-top: 16px;
-    }
+    .portfolio { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px; margin-top: 16px; }
     .card {
-      background: var(--card-bg);
-      padding: 20px;
-      border-radius: var(--radius);
-      box-shadow: var(--elev);
-      transition: background .3s, transform .2s, box-shadow .3s;
+      position: relative; background: var(--card-bg); padding: 20px; border-radius: var(--radius);
+      box-shadow: var(--elev); transition: background .3s, transform .2s, box-shadow .3s;
     }
     .card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,.08); }
     .card h3 { margin: 0 0 8px; }
-    .card p { margin: 0; color: var(--muted); }
+    .card p  { margin: 0; color: var(--muted); }
+    .card-clickable { cursor: pointer; }
 
-    footer {
-      background: var(--accent);
-      color: white;
-      text-align: center;
-      padding: 20px;
-      margin-top: 40px;
-      transition: background .3s;
+    /* Кнопка "Подробнее" на карточке */
+    .more-btn {
+      position: absolute; top: 10px; right: 10px;
+      border: none; background: rgba(0,0,0,0.06); color: var(--text);
+      backdrop-filter: blur(2px); border-radius: 999px; width: 32px; height: 32px;
+      display: grid; place-items: center; cursor: pointer; font-weight: 700;
+      transition: background .2s, transform .1s; box-shadow: var(--elev);
     }
+    .card:hover .more-btn { background: rgba(0,0,0,0.08); }
+    .more-btn:active { transform: scale(.96); }
+    .more-btn span { font-size: 16px; line-height: 1; }
+
+    footer { background: var(--accent); color: white; text-align: center; padding: 20px; margin-top: 40px; transition: background .3s; }
     footer a { color: #ecf0f1; text-decoration: none; }
 
-    /* Кнопка темы */
     .theme-toggle {
-      position: fixed; top: 20px; right: 20px;
-      background: var(--accent); color: white;
-      border: none; border-radius: 999px;
-      padding: 10px 14px; cursor: pointer;
-      font-size: 14px; font-weight: 600;
-      transition: background .3s, transform .1s;
+      position: fixed; top: 20px; right: 20px; background: var(--accent); color: white; border: none; border-radius: 999px;
+      padding: 10px 14px; cursor: pointer; font-size: 14px; font-weight: 600; transition: background .3s, transform .1s;
       box-shadow: var(--elev); z-index: 1000;
     }
     .theme-toggle:active { transform: scale(.98); }
 
-    /* Параллакс-блоки (из локальной папки images/) */
     .parallax {
-      height: 420px;
-      background-attachment: fixed;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: cover;
-      display: flex; align-items: center; justify-content: center;
-      color: white; text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+      height: 420px; background-attachment: fixed; background-position: center; background-repeat: no-repeat; background-size: cover;
+      display: flex; align-items: center; justify-content: center; color: white; text-shadow: 0 2px 6px rgba(0,0,0,0.6);
       font-size: 2rem; position: relative; overflow: hidden;
     }
-    .parallax::after {
-      content: ""; position: absolute; inset: 0;
-      background: linear-gradient(to bottom, rgba(0,0,0,0.18), rgba(0,0,0,0.35));
-    }
+    .parallax::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.18), rgba(0,0,0,0.35)); }
     .parallax > span { position: relative; z-index: 1; font-weight: 700; }
     @media (max-width: 1024px) { .parallax { background-attachment: scroll; } }
 
-    /* Анимации появления */
     .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
     .reveal.visible { opacity: 1; transform: none; }
     @media (prefers-reduced-motion: reduce) {
-      * { transition: none !important; }
-      .reveal { opacity: 1 !important; transform: none !important; }
+      * { transition: none !important; } .reveal { opacity: 1 !important; transform: none !important; }
       .parallax { background-attachment: scroll; }
+    }
+
+    /* ===== Modal (dialog) ===== */
+    dialog.info-modal {
+      width: min(760px, 92vw); border: none; border-radius: 14px; padding: 0;
+      box-shadow: 0 20px 60px rgba(0,0,0,.35); background: var(--card-bg); color: var(--text);
+    }
+    dialog.info-modal::backdrop { background: rgba(0,0,0,.45); backdrop-filter: blur(2px); }
+    .modal-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 18px; border-bottom: 1px solid rgba(0,0,0,.06); }
+    .modal-title { font-weight: 700; margin: 0; color: var(--accent); }
+    .modal-close { appearance: none; border: none; background: transparent; cursor: pointer; font-size: 20px; padding: 6px; line-height: 1; color: var(--text); }
+    .modal-body { padding: 0; }
+    .modal-cover { width: 100%; max-height: 260px; object-fit: cover; display: none; border-top-left-radius: 14px; border-top-right-radius: 14px; }
+    .modal-content { padding: 18px; line-height: 1.7; color: var(--text); }
+    .modal-content p { margin: 0 0 12px; }
+    .modal-actions { padding: 12px 18px; text-align: right; border-top: 1px solid rgba(0,0,0,.06); }
+    .modal-actions .btn { appearance: none; border: none; border-radius: 10px; padding: 10px 14px; cursor: pointer; font-weight: 600; background: var(--accent); color: #fff; }
+
+    .section-clickable { position: relative; cursor: pointer; }
+    .section-clickable::after {
+      content: "Нажмите, чтобы узнать подробнее"; position: absolute; right: 20px; top: 20px;
+      font-size: 12px; opacity: .55; color: var(--muted); pointer-events: none;
     }
   </style>
 </head>
@@ -171,10 +143,12 @@
     <span>Добро пожаловать в моё портфолио</span>
   </div>
 
-  <section id="about" class="reveal">
+  <section id="about" class="reveal section-clickable"
+    data-modal-title="Обо мне — кратко"
+    data-modal-body="Я — Project Manager с опытом ведения продуктовых и внедренческих проектов (Scrum/Kanban/OKR). Фокус — поставка ценности, прозрачность процессов, управление рисками и прогнозируемость релизов.">
     <h2 class="reveal">Обо мне</h2>
     <p class="lead reveal" data-delay="80">
-      Кратко расскажите о своём опыте, доменных знаниях и ключевых достижениях в управлении проектами.
+      Кратко расскажите о своём опыте, доменных знаниях и ключевых достижениях.
     </p>
   </section>
 
@@ -183,20 +157,39 @@
     <span>Мои проекты</span>
   </div>
 
-  <section id="portfolio" class="reveal">
+  <section id="portfolio" class="reveal section-clickable"
+    data-modal-title="Портфолио — что внутри"
+    data-modal-body="Подборка проектов с ролями, метриками успеха и стеком: цели, сроки, команда, бюджет, достигнутые KPI. Для каждого проекта можно добавить ссылку на кейс-стади или демо.">
     <h2 class="reveal">Портфолио</h2>
     <div class="portfolio">
-      <div class="card reveal" data-delay="0">
+      
+      <div class="card card-clickable reveal" data-delay="0"
+           data-modal-title="Проект 1 — Внедрение CRM"
+           data-modal-img="images/proj1.jpg"
+           data-modal-body='<p><strong>Роль:</strong> Project Manager</p><ul><li>Команда: 12 человек (BE, FE, QA, BA)</li><li>Срок: 6 месяцев</li><li>Методология: Scrum</li><li>Результаты: +20% к конверсии, -30% к времени обработки заявки</li></ul><p><strong>Стек:</strong> Jira, Confluence, Salesforce</p>'>
+        <button class="more-btn" aria-label="Подробнее" title="Подробнее"><span>ℹ️</span></button>
         <h3>Проект 1</h3>
-        <p>Краткое описание, роль, результаты, использованные методологии/инструменты.</p>
+        <p>CRM для отдела продаж: анализ, планирование, релизы, контроль рисков.</p>
       </div>
-      <div class="card reveal" data-delay="80">
+
+      
+      <div class="card card-clickable reveal" data-delay="80"
+           data-modal-title="Проект 2 — Запуск аналитической витрины"
+           data-modal-img="images/proj2.jpg"
+           data-modal-body='<p><strong>Роль:</strong> PM</p><ul><li>Команда: 9 человек (DS, DWH, DE, QA)</li><li>Срок: 4 месяца</li><li>Методология: Kanban</li><li>Результаты: единые метрики, снижение ручной отчётности на 70%</li></ul><p><strong>Стек:</strong> Airflow, BigQuery, Tableau</p>'>
+        <button class="more-btn" aria-label="Подробнее" title="Подробнее"><span>ℹ️</span></button>
         <h3>Проект 2</h3>
-        <p>Ключевые метрики успеха и ценность для бизнеса.</p>
+        <p>BI-отчётность и метрики продукта для руководства и команд.</p>
       </div>
-      <div class="card reveal" data-delay="160">
+
+      
+      <div class="card card-clickable reveal" data-delay="160"
+           data-modal-title="Проект 3 — Мобильное приложение"
+           data-modal-img="images/proj3.jpg"
+           data-modal-body='<p><strong>Роль:</strong> PM</p><ul><li>Команда: 10 человек (iOS/Android, BE, QA, UX)</li><li>Срок: 5 месяцев</li><li>Методология: Scrum</li><li>Результаты: MAU +35% через 2 месяца, NPS +12 п.п.</li></ul><p><strong>Стек:</strong> Firebase, AppCenter, Figma</p>'>
+        <button class="more-btn" aria-label="Подробнее" title="Подробнее"><span>ℹ️</span></button>
         <h3>Проект 3</h3>
-        <p>Ссылки на демо/репозиторий/кейс-стади (если есть).</p>
+        <p>Запуск приложения с личным кабинетом и пуш-уведомлениями.</p>
       </div>
     </div>
   </section>
@@ -206,7 +199,9 @@
     <span>Моё резюме</span>
   </div>
 
-  <section id="resume" class="reveal">
+  <section id="resume" class="reveal section-clickable"
+    data-modal-title="Резюме (PDF)"
+    data-modal-body="Актуальное CV: опыт, компетенции, ключевые результаты и сертификации. Можно скачать или открыть в новой вкладке.">
     <h2 class="reveal">Резюме</h2>
     <p style="text-align:center;" class="reveal" data-delay="80">
       📄 <a href="resume.pdf" download>Скачать резюме (PDF)</a>
@@ -219,7 +214,9 @@
     <span>Контакты</span>
   </div>
 
-  <section id="contacts" class="reveal">
+  <section id="contacts" class="reveal section-clickable"
+    data-modal-title="Как со мной связаться"
+    data-modal-body="Предпочтительный канал — email. Также доступна связь через LinkedIn и телефон. Отвечаю в рабочее время.">
     <h2 class="reveal">Контакты</h2>
     <p class="reveal" data-delay="80">
       📧 email@example.com <br />
@@ -231,6 +228,21 @@
   <footer class="reveal">
     <p>© 2025 Златислава Поддубная</p>
   </footer>
+
+  
+  <dialog class="info-modal" id="infoModal" aria-labelledby="infoTitle" aria-describedby="infoDesc">
+    <div class="modal-header">
+      <h3 id="infoTitle" class="modal-title">Заголовок</h3>
+      <button class="modal-close" aria-label="Закрыть" title="Закрыть">✕</button>
+    </div>
+    <img id="infoCover" class="modal-cover" alt="">
+    <div class="modal-body">
+      <div class="modal-content" id="infoDesc"></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn" data-close>Понятно</button>
+    </div>
+  </dialog>
 
   <script>
     // Тема с запоминанием
@@ -267,6 +279,91 @@
     } else {
       document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
     }
+
+    // ===== Модалки для секций и карточек (с обложкой) =====
+    (function initModals() {
+      const modal = document.getElementById('infoModal');
+      const titleEl = modal.querySelector('#infoTitle');
+      const bodyEl  = modal.querySelector('#infoDesc');
+      const coverEl = modal.querySelector('#infoCover');
+      const closeBtn = modal.querySelector('.modal-close');
+      const okBtn = modal.querySelector('[data-close]');
+
+      function openModal({ title, body, img }) {
+        titleEl.textContent = title || 'Информация';
+        bodyEl.innerHTML = body || 'Описание отсутствует.';
+        if (img) {
+          coverEl.src = img;
+          coverEl.style.display = 'block';
+          coverEl.alt = title ? `Обложка: ${title}` : 'Обложка';
+        } else {
+          coverEl.removeAttribute('src');
+          coverEl.style.display = 'none';
+          coverEl.alt = '';
+        }
+        modal.showModal();
+        closeBtn.focus();
+      }
+      function closeModal() { modal.close(); }
+
+      closeBtn.addEventListener('click', closeModal);
+      okBtn.addEventListener('click', closeModal);
+
+      // Клик по фону — закрыть
+      modal.addEventListener('click', (e) => {
+        const rect = modal.getBoundingClientRect();
+        const inside = (e.clientX >= rect.left && e.clientX <= rect.right &&
+                        e.clientY >= rect.top  && e.clientY <= rect.bottom);
+        if (!inside) closeModal();
+      });
+
+      // Делегирование кликов (сначала кнопка «Подробнее», затем карточки, затем секции)
+      document.addEventListener('click', (e) => {
+        // Кнопка "Подробнее" на карточке
+        const moreBtn = e.target.closest('.more-btn');
+        if (moreBtn) {
+          const card = moreBtn.closest('.card.card-clickable');
+          if (card) {
+            openModal({
+              title: card.getAttribute('data-modal-title'),
+              body:  card.getAttribute('data-modal-body'),
+              img:   card.getAttribute('data-modal-img')
+            });
+          }
+          return;
+        }
+
+        // Если клик по интерактивному элементу — не перехватываем
+        const isInteractive = e.target.closest('a, button, [role="button"], input, textarea, select, summary, label');
+        if (isInteractive) return;
+
+        // Карточка (клик по самой карточке)
+        const card = e.target.closest('.card.card-clickable');
+        if (card) {
+          openModal({
+            title: card.getAttribute('data-modal-title'),
+            body:  card.getAttribute('data-modal-body'),
+            img:   card.getAttribute('data-modal-img')
+          });
+          return;
+        }
+
+        // Секция
+        const section = e.target.closest('section.section-clickable');
+        if (section) {
+          openModal({
+            title: section.getAttribute('data-modal-title'),
+            body:  section.getAttribute('data-modal-body'),
+            img:   null
+          });
+        }
+      });
+
+      // ESC закрывает (на случай отсутствия нативной поддержки)
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.open) closeModal();
+      });
+    })();
   </script>
 </body>
 </html>
