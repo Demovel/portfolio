@@ -1,0 +1,102 @@
+:root {
+  --bg: #f6f7f9; --text: #222; --muted: #55607099; --card-bg: #fff;
+  --accent: #2c3e50; --accent-weak: #3f5368; --elev: 0 2px 6px rgba(0,0,0,0.08);
+  --radius: 12px; --link: var(--accent); --link-hover: #4b6b8a;
+}
+body.dark {
+  --bg: #1e1e1e; --text: #eaeaea; --muted: #cfd6df99; --card-bg: #2a2a2a;
+  --accent: #4db6ff; --accent-weak: #77c8ff; --elev: 0 2px 10px rgba(0,0,0,0.35);
+  --link: var(--accent); --link-hover: #a8ddff;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  margin: 0; background: var(--bg); color: var(--text); line-height: 1.65;
+  transition: background .3s, color .3s;
+}
+
+header { background: var(--accent); color: #fff; padding: 56px 20px; text-align: center; transition: background .3s; }
+header h1 { margin: 0; font-size: 2.6rem; font-weight: 700; letter-spacing: .2px; }
+header p  { margin: 10px 0 0; font-weight: 500; opacity: .95; }
+
+nav { text-align: center; margin: 20px 0 10px; }
+nav a {
+  display: inline-block; margin: 0 14px; color: var(--link); text-decoration: none; font-weight: 600;
+  padding-bottom: 2px; border-bottom: 2px solid transparent; transition: color .25s, border-color .25s;
+}
+nav a:hover { color: var(--link-hover); border-color: var(--link-hover); }
+
+section { max-width: 980px; margin: auto; padding: 44px 20px; }
+h2 { text-align: center; margin: 0 0 20px; color: var(--accent); font-weight: 700; }
+p.lead { text-align: center; color: var(--muted); margin-top: -6px; }
+
+.portfolio { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px; margin-top: 16px; }
+.card {
+  position: relative; background: var(--card-bg); padding: 20px; border-radius: var(--radius);
+  box-shadow: var(--elev); transition: background .3s, transform .2s, box-shadow .3s;
+}
+.card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,.08); }
+.card h3 { margin: 0 0 8px; }
+.card p  { margin: 0; color: var(--muted); }
+.card-clickable { cursor: pointer; }
+
+/* Кнопка "Подробнее" на карточке */
+.more-btn {
+  position: absolute; top: 10px; right: 10px;
+  border: none; background: rgba(0,0,0,0.06); color: var(--text);
+  backdrop-filter: blur(2px); border-radius: 999px; width: 32px; height: 32px;
+  display: grid; place-items: center; cursor: pointer; font-weight: 700;
+  transition: background .2s, transform .1s; box-shadow: var(--elev);
+}
+.card:hover .more-btn { background: rgba(0,0,0,0.08); }
+.more-btn:active { transform: scale(.96); }
+.more-btn span { font-size: 16px; line-height: 1; }
+
+footer { background: var(--accent); color: white; text-align: center; padding: 20px; margin-top: 40px; transition: background .3s; }
+footer a { color: #ecf0f1; text-decoration: none; }
+
+.theme-toggle {
+  position: fixed; top: 20px; right: 20px; background: var(--accent); color: white; border: none; border-radius: 999px;
+  padding: 10px 14px; cursor: pointer; font-size: 14px; font-weight: 600; transition: background .3s, transform .1s;
+  box-shadow: var(--elev); z-index: 1000;
+}
+.theme-toggle:active { transform: scale(.98); }
+
+.parallax {
+  height: 420px; background-attachment: fixed; background-position: center; background-repeat: no-repeat; background-size: cover;
+  display: flex; align-items: center; justify-content: center; color: white; text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+  font-size: 2rem; position: relative; overflow: hidden;
+}
+.parallax::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.18), rgba(0,0,0,0.35)); }
+.parallax > span { position: relative; z-index: 1; font-weight: 700; }
+@media (max-width: 1024px) { .parallax { background-attachment: scroll; } }
+
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; } .reveal { opacity: 1 !important; transform: none !important; }
+  .parallax { background-attachment: scroll; }
+}
+
+/* ===== Modal (dialog) ===== */
+dialog.info-modal {
+  width: min(760px, 92vw); border: none; border-radius: 14px; padding: 0;
+  box-shadow: 0 20px 60px rgba(0,0,0,.35); background: var(--card-bg); color: var(--text);
+}
+dialog.info-modal::backdrop { background: rgba(0,0,0,.45); backdrop-filter: blur(2px); }
+.modal-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 18px; border-bottom: 1px solid rgba(0,0,0,.06); }
+.modal-title { font-weight: 700; margin: 0; color: var(--accent); }
+.modal-close { appearance: none; border: none; background: transparent; cursor: pointer; font-size: 20px; padding: 6px; line-height: 1; color: var(--text); }
+.modal-body { padding: 0; }
+.modal-cover { width: 100%; max-height: 260px; object-fit: cover; display: none; border-top-left-radius: 14px; border-top-right-radius: 14px; }
+.modal-content { padding: 18px; line-height: 1.7; color: var(--text); }
+.modal-content p { margin: 0 0 12px; }
+.modal-actions { padding: 12px 18px; text-align: right; border-top: 1px solid rgba(0,0,0,.06); }
+.modal-actions .btn { appearance: none; border: none; border-radius: 10px; padding: 10px 14px; cursor: pointer; font-weight: 600; background: var(--accent); color: #fff; }
+
+.section-clickable { position: relative; cursor: pointer; }
+.section-clickable::after {
+  content: "Нажмите, чтобы узнать подробнее"; position: absolute; right: 20px; top: 20px;
+  font-size: 12px; opacity: .55; color: var(--muted); pointer-events: none;
+}
