@@ -12,7 +12,6 @@
   <meta name="theme-color" content="#2c3e50" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#1e1e1e" media="(prefers-color-scheme: dark)">
 
-  
   <link rel="manifest" href="site.webmanifest">
 
   <link rel="icon" type="image/svg+xml"
@@ -31,27 +30,59 @@
         <p class="hero__subtitle">Запускаю и довожу до релиза IT-проекты: вовремя, в бюджете, с прозрачной коммуникацией</p>
         <div class="hero__cta">
           <a class="btn btn--primary" href="resume.pdf" download>Скачать резюме (PDF)</a>
-          <a class="btn btn--ghost" href="#projects">Портфолио кейсов</a>
         </div>
       </div>
-      
       <div class="hero__photo">
-        <img src="images/photo.jpg" alt="Профессиональный портрет — Поддубная Златислава" />
-      </div>
+        <img src="images/photo.jpg" alt="Профессиональный портрет — Поддубная ЗлатиславаВнесла указанные правки. Ниже — обновлённые файлы.
+
+Что изменено:
+- В шапке оставлена одна кнопка: «Скачать резюме (PDF)».
+- В навигации пункт «Портфолио» переименован в «Портфолио кейсов».
+- Секция «Резюме» (и её параллакс) удалены.
+- Секция «Контакты» уменьшена; убран параллакс с картинкой перед контактами.
+
+index.html
+```html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Портфолио – Златислава Поддубная</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <meta name="theme-color" content="#2c3e50" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1e1e1e" media="(prefers-color-scheme: dark)">
+
+  <link rel="icon" type="image/svg+xml"
+        href='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"><rect width="100%" height="100%" rx="12" fill="%232c3e50"/><text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" font-family="Inter,Arial" font-size="28" fill="white">ZP</text></svg>'>
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <button class="theme-toggle" type="button">🌙 Тёмная тема</button>
+
+  <header class="reveal">
+    <h1>Златислава Поддубная</h1>
+    <p>Project Manager</p>
+    <div class="header-cta">
+      <a class="btn btn--primary" href="resume.pdf" download>Скачать резюме (PDF)</a>
     </div>
   </header>
 
-  
-  <nav class="reveal nav" data-delay="60">
+  <nav class="reveal" data-delay="80">
     <a href="#about">Обо мне</a>
-    <a href="#projects">Мои проекты</a>
-    <a href="#resume">Моё резюме</a>
+    <a href="#portfolio">Портфолио кейсов</a>
     <a href="#contacts">Контакты</a>
   </nav>
 
-  
+  <div class="parallax reveal" style="background-image: url('images/welcome.jpg');">
+    <span>Добро пожаловать в моё портфолио</span>
+  </div>
 
-  
   <section id="about" class="reveal section-clickable narrow"
     data-modal-title="Обо мне"
     data-modal-body='
@@ -76,7 +107,6 @@
     </p>
   </section>
 
-  
   <div class="parallax reveal" style="background-image: url('images/projects.jpg');">
     <span>Мои проекты</span>
   </div>
@@ -144,24 +174,7 @@
   </section>
 
   
-  <div class="parallax reveal" style="background-image: url('images/resume.jpg');">
-    <span>Моё резюме</span>
-  </div>
 
-  
-  <section id="resume" class="reveal narrow">
-    <div class="cta-row">
-      <a class="btn btn--primary" href="resume.pdf" download>Скачать резюме (PDF)</a>
-      <a class="btn btn--ghost" href="resume.pdf" target="_blank" rel="noopener">Посмотреть онлайн</a>
-    </div>
-  </section>
-
-  
-  <div class="parallax reveal" style="background-image: url('images/contacts.jpg');">
-    <span>Контакты</span>
-  </div>
-
-  
   <section id="contacts" class="reveal narrow">
     <p class="lead">Связаться со мной</p>
     <div class="contacts">
@@ -175,10 +188,9 @@
   </section>
 
   <footer class="reveal">
-    <p>© 2025 Поддубная Златислава</p>
+    <p>© 2025 Златислава Поддубная</p>
   </footer>
 
-  
   <dialog class="info-modal" id="infoModal" aria-labelledby="infoTitle" aria-describedby="infoDesc">
     <div class="modal-header">
       <h3 id="infoTitle" class="modal-title">Заголовок</h3>
@@ -188,7 +200,9 @@
     <div class="modal-body">
       <div class="modal-content" id="infoDesc"></div>
     </div>
-    
+    <div class="modal-actions">
+      <button class="btn" data-close>Понятно</button>
+    </div>
   </dialog>
 
   <script src="script.js" defer></script>

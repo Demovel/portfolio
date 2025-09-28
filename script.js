@@ -40,15 +40,14 @@ if (!prefersReduced && 'IntersectionObserver' in window) {
   document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
 }
 
-// ===== Модалки (по ТЗ: без кнопки "Понятно") =====
+// ===== Модалки для секций и карточек (с обложкой) =====
 (function initModals() {
   const modal = document.getElementById('infoModal');
-  if (!modal) return;
-
   const titleEl = modal.querySelector('#infoTitle');
   const bodyEl  = modal.querySelector('#infoDesc');
   const coverEl = modal.querySelector('#infoCover');
   const closeBtn = modal.querySelector('.modal-close');
+  const okBtn = modal.querySelector('[data-close]');
 
   function openModal({ title, body, img }) {
     titleEl.textContent = title || 'Информация';
@@ -68,6 +67,7 @@ if (!prefersReduced && 'IntersectionObserver' in window) {
   function closeModal() { modal.close(); }
 
   closeBtn.addEventListener('click', closeModal);
+  okBtn.addEventListener('click', closeModal);
 
   // Клик по фону — закрыть
   modal.addEventListener('click', (e) => {
@@ -79,7 +79,7 @@ if (!prefersReduced && 'IntersectionObserver' in window) {
 
   // Делегирование кликов
   document.addEventListener('click', (e) => {
-    // Кнопка "Подробнее" на карточке
+    // Кнопка "Подробнее"
     const moreBtn = e.target.closest('.more-btn');
     if (moreBtn) {
       const card = moreBtn.closest('.card.card-clickable');
@@ -108,7 +108,7 @@ if (!prefersReduced && 'IntersectionObserver' in window) {
       return;
     }
 
-    // Секция "Обо мне" — кликабельна (остальные секции — нет)
+    // Секция
     const section = e.target.closest('section.section-clickable');
     if (section) {
       openModal({
