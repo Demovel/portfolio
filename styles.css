@@ -41,6 +41,22 @@ section { max-width: 980px; margin: auto; padding: 44px 20px; }
 h2 { text-align: center; margin: 0 0 20px; color: var(--accent); font-weight: 700; }
 p.lead { text-align: center; color: var(--muted); margin-top: -6px; }
 
+/* Суженные секции, если используется .narrow */
+.narrow { max-width: 980px; margin: 0 auto; }
+
+/* Хиро-блок (шапка с фото и текстом) */
+.hero__inner {
+  max-width: 980px; margin: 0 auto; display: grid; gap: 24px;
+  grid-template-columns: 1.2fr .8fr; align-items: center;
+}
+.hero__title { margin: 0; }
+.hero__subtitle { margin: 10px 0 0; }
+.hero__photo img { width: 100%; height: auto; border-radius: 12px; box-shadow: var(--elev); }
+@media (max-width: 800px) {
+  .hero__inner { grid-template-columns: 1fr; text-align: center; }
+  .hero__photo { order: -1; }
+}
+
 .portfolio { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px; margin-top: 16px; }
 .card {
   position: relative; background: var(--card-bg); padding: 20px; border-radius: var(--radius);
@@ -50,6 +66,7 @@ p.lead { text-align: center; color: var(--muted); margin-top: -6px; }
 .card h3 { margin: 0 0 8px; }
 .card p  { margin: 0; color: var(--muted); }
 .card-clickable { cursor: pointer; }
+.card-clickable:focus { outline: 3px solid var(--accent-weak); outline-offset: 2px; }
 
 /* Кнопка "Подробнее" на карточке */
 .more-btn {
