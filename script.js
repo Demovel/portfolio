@@ -1,21 +1,23 @@
-// Тема с запоминанием (безопасное хранение + обновление meta theme-color)
+// Тема с запоминанием + корректное обновление meta theme-color под монохром
 const THEME_KEY = 'site-theme';
 function safeGet(k){ try { return localStorage.getItem(k); } catch { return null; } }
 function safeSet(k,v){ try { localStorage.setItem(k,v); } catch {} }
+
 function applyThemeMeta() {
-  // Обновляем текущий meta[name="theme-color"] (если он есть)
+  const light = '#ffffff';
+  const dark  = '#0b0b0b';
+  const isDark = document.body.classList.contains('dark');
+
   const metas = document.querySelectorAll('meta[name="theme-color"]');
-  // metas[0] обычно для light, metas[1] для dark (в документе они заданы с media)
   metas.forEach(m => {
     if (m.hasAttribute('media')) {
-      // Попробуем подставить подходящее значение в том же теге
       if (m.getAttribute('media').includes('dark')) {
-        m.setAttribute('content', document.body.classList.contains('dark') ? '#1e1e1e' : '#2c3e50');
+        m.setAttribute('content', dark);
       } else if (m.getAttribute('media').includes('light')) {
-        m.setAttribute('content', document.body.classList.contains('dark') ? '#1e1e1e' : '#2c3e50');
+        m.setAttribute('content', light);
       }
     } else {
-      m.setAttribute('content', document.body.classList.contains('dark') ? '#1e1e1e' : '#2c3e50');
+      m.setAttribute('content', isDark ? dark : light);
     }
   });
 }
@@ -35,17 +37,20 @@ function toggleTheme() {
 function updateThemeButton() {
   const btn = document.querySelector('.theme-toggle');
   if (btn) {
-    btn.textContent = document.body.classList.contains('dark') ? '☀️ Светлая тема' : '🌙 Тёмная тема';
+    // Минималистичная кнопка: символ + доступный label
+    const isDark = document.body.classList.contains('dark');
+    btn.textContent = '◐';
+    btn.setAttribute('aria-label', isDark ? 'Светлая тема' : 'Тёмная тема');
+    btn.setAttribute('title', isDark ? 'Светлая тема' : 'Тёмная тема');
   }
 }
-// Навешиваем обработчик на кнопку темы
 document.addEventListener('DOMContentLoaded', () => {
   const btn = document.querySelector('.theme-toggle');
   if (btn) btn.addEventListener('click', toggleTheme);
 });
 
 // Анимации появления
-const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const prefersReduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 if (!prefersReduced && 'IntersectionObserver' in window) {
   const io = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -66,6 +71,7 @@ if (!prefersReduced && 'IntersectionObserver' in window) {
 (function initModals() {
   const modal = document.getElementById('infoModal');
   if (!modal) return;
+
   const titleEl = modal.querySelector('#infoTitle');
   const bodyEl  = modal.querySelector('#infoDesc');
   const coverEl = modal.querySelector('#infoCover');
@@ -85,32 +91,18 @@ if (!prefersReduced && 'IntersectionObserver' in window) {
       coverEl.style.display = 'none';
       coverEl.alt = '';
     }
-    try {
-      modal.showModal();
-    } catch (err) {
-      // В старых браузерах dialog может не поддерживаться — фоллбек (в простом виде)
-      modal.setAttribute('open', '');
-    }
-    closeBtn.focus();
+    try { modal.showModal(); } catch { modal.setAttribute('open', ''); }
+    closeBtn?.focus();
   }
   function closeModal() {
-    try {
-      modal.close();
-    } catch (err) {
-      modal.removeAttribute('open');
-    }
-    // Возвращаем фокус туда, откуда открывали
-    if (lastTriggerEl && typeof lastTriggerEl.focus === 'function') {
-      lastTriggerEl.focus();
-    }
+    try { modal.close(); } catch { modal.removeAttribute('open'); }
+    if (lastTriggerEl && typeof lastTriggerEl.focus === 'function') lastTriggerEl.focus();
   }
 
-  closeBtn.addEventListener('click', closeModal);
-  okBtn.addEventListener('click', closeModal);
-  // Esc диалога (cancel) — тоже закрыть
+  closeBtn?.addEventListener('click', closeModal);
+  okBtn?.addEventListener('click', closeModal);
   modal.addEventListener('cancel', (e) => { e.preventDefault(); closeModal(); });
 
-  // Клик по фону — закрыть
   modal.addEventListener('click', (e) => {
     const rect = modal.getBoundingClientRect();
     const inside = (e.clientX >= rect.left && e.clientX <= rect.right &&
@@ -118,9 +110,7 @@ if (!prefersReduced && 'IntersectionObserver' in window) {
     if (!inside) closeModal();
   });
 
-  // Делегирование кликов
   document.addEventListener('click', (e) => {
-    // Кнопка "Подробнее"
     const moreBtn = e.target.closest('.more-btn');
     if (moreBtn) {
       const card = moreBtn.closest('.card.card-clickable');
@@ -135,11 +125,9 @@ if (!prefersReduced && 'IntersectionObserver' in window) {
       return;
     }
 
-    // Пропускаем интерактивные элементы
     const isInteractive = e.target.closest('a, button, [role="button"], input, textarea, select, summary, label');
     if (isInteractive) return;
 
-    // Карточка
     const card = e.target.closest('.card.card-clickable');
     if (card) {
       lastTriggerEl = card;
@@ -151,7 +139,6 @@ if (!prefersReduced && 'IntersectionObserver' in window) {
       return;
     }
 
-    // Секция
     const section = e.target.closest('section.section-clickable');
     if (section) {
       lastTriggerEl = section;
@@ -163,12 +150,10 @@ if (!prefersReduced && 'IntersectionObserver' in window) {
     }
   });
 
-  // ESC закрывает (на уровне документа)
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && modal.open) closeModal();
   });
 
-  // Клавиатурное открытие карточек (Enter/Space) — доступность
   document.addEventListener('keydown', (e) => {
     const targetCard = e.target.closest('.card.card-clickable');
     if (!targetCard) return;

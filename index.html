@@ -2,156 +2,233 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <title>Визитка — Поддубная Златислава</title>
+  <title>Поддубная Златислава — IT Project Manager</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <meta name="theme-color" content="#2c3e50" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#1e1e1e" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b0b0b" media="(prefers-color-scheme: dark)">
 
   <link rel="manifest" href="site.webmanifest">
 
   <link rel="icon" type="image/svg+xml"
-        href='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"><rect width="100%" height="100%" rx="12" fill="%232c3e50"/><text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" font-family="Inter,Arial" font-size="28" fill="white">ZP</text></svg>'>
+        href='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"><rect width="100%" height="100%" rx="12" fill="%230b0b0b"/><text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" font-family="Inter,Arial" font-size="28" fill="white">ZL</text></svg>'>
 
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <button class="theme-toggle" type="button">🌙 Тёмная тема</button>
-
   
-  <header class="hero reveal">
-    <div class="hero__inner">
-      <div class="hero__text">
-        <h1 class="hero__title">Поддубная Златислава — менеджер проектов</h1>
-        <p class="hero__subtitle">Запускаю и довожу до релиза IT-проекты: вовремя, в бюджете, с прозрачной коммуникацией</p>
-        <div class="hero__cta">
-          <a class="btn btn--primary" href="resume.pdf" download>Скачать резюме (PDF)</a>
-        </div>
-      </div>     
-      <div class="hero__photo">
-        <img src="images/photo.jpg" alt="Профессиональный портрет — Поддубная Златислава" />
-      </div>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#">ZL</a>
+      <nav class="site-nav">
+        <a href="#projects">Кейсы</a>
+        <a href="#about">Обо мне</a>
+        <a href="#contacts">Контакты</a>
+        <button class="theme-toggle" type="button" aria-label="Переключить тему">◐</button>
+      </nav>
     </div>
   </header>
 
-  <nav class="reveal" data-delay="80">
-    <a href="#about">Обо мне</a>
-    <a href="#projects">Портфолио кейсов</a>
-    <a href="#contacts">Контакты</a>
-  </nav>
   
-  <section id="about" class="reveal section-clickable narrow"
+  <section id="hero" class="hero hero--split reveal">
+    <div class="container hero-grid">
+      <div class="hero-col hero-col--text">
+        <div class="eyebrow">IT PROJECT MANAGER</div>
+        <h1 class="hero-title">Поддубная Златислава</h1>
+        <p class="hero-subtitle">Запускаю и довожу до релиза IT‑продукты и платформы: вовремя, в бюджете и с прозрачной коммуникацией для всех стейкхолдеров.</p>
+        <div class="hero-cta">
+          <a class="btn btn--primary" href="resume.pdf" download>Скачать резюме (PDF)</a>
+          <a class="btn btn--ghost" href="#contacts">Написать</a>
+        </div>
+      </div>
+      <figure class="hero-col hero-col--visual">
+        <img src="images/photo.jpg" alt="Портрет — Поддубная Златислава" />
+      </figure>
+    </div>
+    <div class="rail rail--left">PROJECT MANAGER</div>
+  </section>
+
+  
+  <div class="marquee reveal" data-delay="60" aria-hidden="true">
+    <div class="marquee__track">
+      Сроки • Бюджет • Качество • Команда • Продукт • Риски • Коммуникации • Масштабирование • Agile • Delivery •
+    </div>
+    <div class="marquee__track">
+      Сроки • Бюджет • Качество • Команда • Продукт • Риски • Коммуникации • Масштабирование • Agile • Delivery •
+    </div>
+  </div>
+
+  
+  <section id="projects" class="work reveal">
+    <div class="container">
+      <div class="section-head">
+        <h2>Кейсы</h2>
+        <p class="lead">Выборочные проекты и достигнутые эффекты</p>
+      </div>
+
+      <div class="work-grid">
+        
+        <article class="work-card card card-clickable reveal" data-delay="0"
+                 style="--bg: url('images/proj_pmgf.jpg')"
+                 tabindex="0"
+                 data-modal-title="ПМГФ — выставочная экспозиция цифровой трансформации"
+                 data-modal-img="images/proj_pmgf.jpg"
+                 data-modal-body='
+                  <p><strong>Контекст:</strong> Петербургский международный газовый форум. Цель: демонстрация ИТ-проектов компании на стенде, определение ОЦР по каждому проекту.</p>
+                  <p><strong>Срок:</strong> 9 мес · <strong>Команда:</strong> 30 чел · <strong>Бюджет:</strong> &gt;60 млн ₽</p>
+                  <p><strong>Действия:</strong> консолидация программы, выбор пулов, ОЦР/планы-графики/коммуникации, разработка MVP/прототипов/демо-материалов, дизайн и застройка стенда, договорная часть.</p>
+                  <p><strong>Результаты:</strong>
+                  <ul>
+                    <li>Демонстрация 14 ИТ-решений; участие &gt;50 специалистов; &gt;10 встреч с ключевыми партнёрами</li>
+                    <li>Высокая оценка руководства; подтверждение успеха цифровой трансформации</li>
+                  </ul></p>
+                  <p><strong>Риски и решения:</strong> сдвиги сроков и ограничения по НК РФ — введены альтернативные ОЦР (MVP), оптимизация бюджета, закупка у единственного источника (ЭФ-Дизайн) с подтверждениями аккредитации.</p>
+                  <p><strong>Инструменты:</strong> Битрикс24 (канбан), Timetta, MS Project</p>
+                 '>
+          <button class="more-btn" type="button" aria-label="Подробнее" title="Подробнее"><span>ℹ️</span></button>
+          <div class="work-card__overlay">
+            <span class="kicker">EXHIBITION</span>
+            <h3>ПМГФ: демонстрация 14 ИТ‑решений</h3>
+            <p>Координация 30+ участников, MVP/прототипы, бюджет &gt;60 млн ₽</p>
+          </div>
+        </article>
+
+        
+        <article class="work-card card card-clickable reveal" data-delay="80"
+                 style="--bg: url('images/proj_nsi.jpg')"
+                 tabindex="0"
+                 data-modal-title="Централизованная НСИ — единый источник мастер-данных"
+                 data-modal-img="images/proj_nsi.jpg"
+                 data-modal-body='
+                  <p><strong>Контекст:</strong> Платформа НСИ: единый источник справочных/нормативных данных для подразделений и систем.</p>
+                  <p><strong>Срок:</strong> 12 мес · <strong>Команда:</strong> 10 чел · <strong>Бюджет:</strong> &gt;30 млн ₽</p>
+                  <p><strong>Действия:</strong> полный цикл PM: цели/KPI, команда, бюджет/ресурсы, планирование/контроль (Битрикс24, Timetta, MS Project), коммуникации, управление рисками/изменениями, интеграции, документация, запуск и обучение.</p>
+                  <p><strong>Эффекты/метрики:</strong>
+                    <ul>
+                      <li>Обработка записи: с ~15 мин до 2–5 мин (автоматизация)</li>
+                      <li>Снижение ошибок и дубликатов, ускорение доступности НСИ и отчётности</li>
+                    </ul>
+                  </p>
+                 '>
+          <button class="more-btn" type="button" aria-label="Подробнее" title="Подробнее"><span>ℹ️</span></button>
+          <div class="work-card__overlay">
+            <span class="kicker">PLATFORM</span>
+            <h3>Централизованная НСИ</h3>
+            <p>Скорость операций ↑, качество данных ↑, единый источник истины</p>
+          </div>
+        </article>
+
+        
+        <article class="work-card card card-clickable reveal" data-delay="160"
+                 style="--bg: url('images/proj_marketplace.jpg')"
+                 tabindex="0"
+                 data-modal-title="Маркетплейс — ускорение TTM и снижение дефектов"
+                 data-modal-img="images/proj_marketplace.jpg"
+                 data-modal-body='
+                  <p><strong>Контекст:</strong> Запуск маркетплейса.</p>
+                  <p><strong>Срок:</strong> 6 мес · <strong>Команда:</strong> 18 чел</p>
+                  <p><strong>Действия:</strong> внедрил Scrum, реестр рисков, контроль по burndown, регулярные ретро.</p>
+                  <p><strong>Результат:</strong> +28% фич/спринт, релиз вовремя, −12% багов на проде.</p>
+                 '>
+          <button class="more-btn" type="button" aria-label="Подробнее" title="Подробнее"><span>ℹ️</span></button>
+          <div class="work-card__overlay">
+            <span class="kicker">E‑COM</span>
+            <h3>Маркетплейс: +28% velocity</h3>
+            <p>Релиз в срок, качество поставки улучшено</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  
+  <section id="about" class="about reveal section-clickable"
     data-modal-title="Обо мне"
     data-modal-body='
       <p><strong>Ключевые компетенции и стек</strong></p>
       <ul>
         <li>Agile/Scrum/Kanban, Waterfall, гибридные модели</li>
-        <li>Enterprise-разработка, управление портфелем и рисками</li>
+        <li>Enterprise‑разработка, управление портфелем и рисками</li>
         <li>Jira, Confluence, Trello, Asana, Redmine, Битрикс24, Timetta, Miro, MS Project</li>
       </ul>
-      <p><strong>Достижения в цифрах (social proof)</strong></p>
+      <p><strong>Достижения в цифрах</strong></p>
       <ul>
-        <li>10 проектов на сумму &gt;400 млн ₽, команды до 30 человек, до 4 проектов параллельно</li>
-        <li><em>Сроки:</em> 85–95% вовремя; сжатие сроков на 10–30%; средняя просрочка ≤5–10%</li>
-        <li><em>Бюджет:</em> отклонение ±3–5%; экономия 8–20% (переговоры/тендеры); ROI 15–60%</li>
+        <li>10 проектов на сумму &gt;400 млн ₽, команды до 30 чел., до 4 проектов параллельно</li>
+        <li><em>Сроки:</em> 85–95% вовремя; сжатие сроков 10–30%; средняя просрочка ≤5–10%</li>
+        <li><em>Бюджет:</em> отклонение ±3–5%; экономия 8–20%; ROI 15–60%</li>
         <li><em>Качество:</em> дефекты −20–50%; «утёкшие» −30–60%; UAT 92–99%; P1 −40–70%; MTTR −30–60%</li>
         <li><em>Agile:</em> предсказуемость 85–95%; velocity +20–50%; lead time −25–50%; flow efficiency +10–25 п.п.</li>
       </ul>
     '>
-    <h2 class="reveal">Обо мне</h2>
-    <p class="lead reveal" data-delay="60">
-      Управляю кросс-функциональными командами и сложными инициативами: фокус на сроки, бюджет, качество и прозрачность для стейкхолдеров.
-    </p>
-  </section>
-
-  <div class="parallax reveal" style="background-image: url('images/projects.jpg');">
-    <span>Мои проекты</span>
-  </div>
-
-  
-  <section id="projects" class="reveal narrow">
-    <div class="portfolio">
-
-      
-      <div class="card card-clickable reveal" data-delay="0" tabindex="0"
-           data-modal-title="ПМГФ — выставочная экспозиция цифровой трансформации"
-           data-modal-img="images/proj_pmgf.jpg"
-           data-modal-body='
-            <p><strong>Контекст:</strong> Петербургский международный газовый форум. Цель: демонстрация ИТ-проектов компании на стенде, определение ОЦР по каждому проекту.</p>
-            <p><strong>Срок:</strong> 9 мес · <strong>Команда:</strong> 30 чел · <strong>Бюджет:</strong> &gt;60 млн ₽</p>
-            <p><strong>Действия:</strong> консолидация программы, выбор пулов, ОЦР/планы-графики/коммуникации, разработка MVP/прототипов/демо-материалов, дизайн и застройка стенда, договорная часть.</p>
-            <p><strong>Результаты:</strong>
-            <ul>
-              <li>Демонстрация 14 ИТ-решений; участие &gt;50 специалистов; &gt;10 встреч с ключевыми партнёрами</li>
-              <li>Высокая оценка руководства; подтверждение успеха цифровой трансформации</li>
-            </ul></p>
-            <p><strong>Риски и решения:</strong> сдвиги сроков и ограничения по НК РФ — введены альтернативные ОЦР (MVP), оптимизация бюджета, закупка у единственного источника (ЭФ-Дизайн) с подтверждениями аккредитации.</p>
-            <p><strong>Инструменты:</strong> Битрикс24 (канбан), Timetta, MS Project</p>
-           '>
-        <button class="more-btn" type="button" aria-label="Подробнее" title="Подробнее"><span>ℹ️</span></button>
-        <h3>ПМГФ: демонстрация 14 ИТ-решений</h3>
-        <p>Крупный стенд, MVP/прототипы, координация 30+ участников, бюджет &gt;60 млн ₽.</p>
+    <div class="container">
+      <div class="section-head">
+        <h2>Обо мне</h2>
+        <p class="lead">Управление кросс‑функциональными командами, сложные инициативы, предсказуемая поставка.</p>
       </div>
 
-      
-      <div class="card card-clickable reveal" data-delay="80" tabindex="0"
-           data-modal-title="Централизованная НСИ — единый источник мастер-данных"
-           data-modal-img="images/proj_nsi.jpg"
-           data-modal-body='
-            <p><strong>Контекст:</strong> Платформа НСИ: единый источник справочных/нормативных данных для подразделений и систем.</p>
-            <p><strong>Срок:</strong> 12 мес · <strong>Команда:</strong> 10 чел · <strong>Бюджет:</strong> &gt;30 млн ₽</p>
-            <p><strong>Действия:</strong> полный цикл PM: цели/KPI, команда, бюджет/ресурсы, планирование/контроль (Битрикс24, Timetta, MS Project), коммуникации, управление рисками/изменениями, интеграции, документация, запуск и обучение.</p>
-            <p><strong>Эффекты/метрики:</strong>
-              <ul>
-                <li>Обработка записи: с ~15 мин до 2–5 мин (автоматизация)</li>
-                <li>Снижение ошибок/дубликатов, ускорение доступности НСИ и отчётности</li>
-              </ul>
-            </p>
-           '>
-        <button class="more-btn" type="button" aria-label="Подробнее" title="Подробнее"><span>ℹ️</span></button>
-        <h3>Централизованная НСИ</h3>
-        <p>Сокращение времени операций, повышение качества данных, единая платформа.</p>
+      <div class="about-grid">
+        <div class="about-col">
+          <p>Строю процесс так, чтобы бизнес получал ценность регулярно: прозрачные цели и KPI, приоритизация бэклога по влиянию, контроль рисков и зависимостей, вовлечение стейкхолдеров и честная обратная связь.</p>
+          <div class="tooling">
+            Инструменты: Jira, Confluence, Битрикс24, Timetta, MS Project, Miro и др.
+          </div>
+        </div>
+        <div class="about-col">
+          <div class="stats">
+            <div class="stat">
+              <div class="stat__num">85–95%</div>
+              <div class="stat__label">релизов вовремя</div>
+            </div>
+            <div class="stat">
+              <div class="stat__num">±3–5%</div>
+              <div class="stat__label">отклонение бюджета</div>
+            </div>
+            <div class="stat">
+              <div class="stat__num">+20–50%</div>
+              <div class="stat__label">velocity команд</div>
+            </div>
+            <div class="stat">
+              <div class="stat__num">−25–50%</div>
+              <div class="stat__label">lead time</div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      
-      <div class="card card-clickable reveal" data-delay="160" tabindex="0"
-           data-modal-title="Маркетплейс — ускорение TTM и снижение дефектов"
-           data-modal-img="images/proj_marketplace.jpg"
-           data-modal-body='
-            <p><strong>Контекст:</strong> Запуск маркетплейса.</p>
-            <p><strong>Срок:</strong> 6 мес · <strong>Команда:</strong> 18 чел</p>
-            <p><strong>Действия:</strong> внедрил Scrum, реестр рисков, контроль по burndown, регулярные ретро.</p>
-            <p><strong>Результат:</strong> +28% фич/спринт, релиз вовремя, −12% багов на проде.</p>
-           '>
-        <button class="more-btn" type="button" aria-label="Подробнее" title="Подробнее"><span>ℹ️</span></button>
-        <h3>Маркетплейс: +28% velocity</h3>
-        <p>Вовремя и с улучшением качества поставки функционала.</p>
-      </div>
     </div>
   </section>
 
   
-
-  <section id="contacts" class="reveal narrow">
-    <p class="lead">Связаться со мной</p>
-    <div class="contacts">
-      <div>📧 <a href="mailto:zlatislava1395@icloud.com">zlatislava1395@icloud.com</a></div>
-      <div>📱 <a href="tel:+79234331313">8-923-433-13-13</a></div>
-      <div>💬 Telegram: <a href="https://t.me/zlatislava95" target="_blank" rel="noopener">@zlatislava95</a></div>
-    </div>
-    <div class="cta-row">
-      <a class="btn btn--primary" href="https://t.me/zlatislava95" target="_blank" rel="noopener">Написать в Telegram</a>
+  <section id="contacts" class="contacts reveal">
+    <div class="container contacts-inner">
+      <div class="contacts-text">
+        <h2>Свяжемся</h2>
+        <p class="lead">Открыта к предложениям: продуктовые команды, платформенные и интеграционные инициативы.</p>
+        <div class="contact-list">
+          <div>📧 <a href="mailto:zlatislava1395@icloud.com">zlatislava1395@icloud.com</a></div>
+          <div>📱 <a href="tel:+79234331313">8‑923‑433‑13‑13</a></div>
+          <div>💬 Telegram: <a href="https://t.me/zlatislava95" target="_blank" rel="noopener">@zlatislava95</a></div>
+        </div>
+        <div class="cta-row">
+          <a class="btn btn--primary" href="https://t.me/zlatislava95" target="_blank" rel="noopener">Написать в Telegram</a>
+          <a class="btn btn--ghost" href="resume.pdf" download>Скачать резюме</a>
+        </div>
+      </div>
     </div>
   </section>
 
-  <footer class="reveal">
-    <p>© 2025 Златислава Поддубная</p>
+  <footer class="site-footer reveal">
+    <div class="container footer-inner">
+      <div class="footer-brand">ZL</div>
+      <div class="footer-copy">© 2025 Златислава Поддубная</div>
+    </div>
   </footer>
 
+  
   <dialog class="info-modal" id="infoModal" aria-labelledby="infoTitle" aria-describedby="infoDesc">
     <div class="modal-header">
       <h3 id="infoTitle" class="modal-title">Заголовок</h3>
