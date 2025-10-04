@@ -11,6 +11,13 @@
 
   --link: var(--text);
   --link-hover: #3a3a3a;
+  
+  /* Цветовые акценты для проектов */
+  --accent-blue: #2563eb;
+  --accent-green: #059669;
+  --accent-purple: #7c3aed;
+  --accent-orange: #ea580c;
+  --accent-pink: #db2777;
 }
 body.dark {
   --bg: #0b0b0b;
@@ -22,6 +29,12 @@ body.dark {
 
   --link: var(--accent);
   --link-hover: #cfcfcf;
+  
+  --accent-blue: #3b82f6;
+  --accent-green: #10b981;
+  --accent-purple: #8b5cf6;
+  --accent-orange: #f97316;
+  --accent-pink: #ec4899;
 }
 
 html { scroll-behavior: smooth; }
@@ -154,11 +167,11 @@ a:hover { color: var(--link-hover); }
 }
 .lead { margin: 6px 0 0; color: var(--muted); }
 
-/* ====== WORK GRID ====== */
+/* ====== WORK GRID (ОБНОВЛЕННЫЙ ДИЗАЙН БЕЗ КАРТИНОК) ====== */
 .work { padding: clamp(28px, 6vw, 72px) 0; }
 .work-grid {
   display: grid; gap: 20px;
-  grid-template-columns: repeat(3, 1fr); /* три карточки в ряд на широких */
+  grid-template-columns: repeat(3, 1fr);
 }
 @media (max-width: 1280px) and (min-width: 901px) {
   .work-grid { grid-template-columns: repeat(2, 1fr); }
@@ -166,37 +179,126 @@ a:hover { color: var(--link-hover); }
 @media (max-width: 900px) {
   .work-grid { grid-template-columns: 1fr; }
 }
-.work-card {
-  position: relative; overflow: hidden; border-radius: 18px;
-  background: var(--card-bg);
-  min-height: 280px;
-  background-image: var(--bg);
-  background-repeat: no-repeat; background-position: center; background-size: cover;
-  box-shadow: var(--elev);
-  transition: transform .35s ease, box-shadow .35s ease, filter .35s ease;
-  isolation: isolate;
-}
-.work-card::before {
-  content: ""; position: absolute; inset: 0;
-  background: linear-gradient(180deg, rgba(0,0,0,0.06) 0%, rgba(0,0,0,0.35) 100%);
-  mix-blend-mode: multiply; z-index: 0;
-}
-.work-card:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(0,0,0,.14); }
 
-.work-card__overlay {
-  position: absolute; inset: auto 16px 16px 16px; z-index: 1;
-  color: #fff;
+/* НОВЫЙ ДИЗАЙН КАРТОЧЕК ПРОЕКТОВ */
+.work-card {
+  position: relative; 
+  border-radius: 18px;
+  background: var(--card-bg);
+  border: 1px solid var(--accent-weak);
+  padding: 24px;
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--elev);
+  transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+  cursor: pointer;
 }
+
+.work-card:hover { 
+  transform: translateY(-4px); 
+  box-shadow: 0 18px 40px rgba(0,0,0,.14);
+  border-color: color-mix(in srgb, var(--accent-weak), var(--text) 15%);
+}
+
+/* Цветовые варианты карточек */
+.work-card.card--exhibition {
+  border-left: 4px solid var(--accent-blue);
+}
+.work-card.card--exhibition .kicker {
+  background: color-mix(in srgb, var(--accent-blue), transparent 90%);
+  color: var(--accent-blue);
+  border-color: color-mix(in srgb, var(--accent-blue), transparent 70%);
+}
+
+.work-card.card--mdm {
+  border-left: 4px solid var(--accent-green);
+}
+.work-card.card--mdm .kicker {
+  background: color-mix(in srgb, var(--accent-green), transparent 90%);
+  color: var(--accent-green);
+  border-color: color-mix(in srgb, var(--accent-green), transparent 70%);
+}
+
+.work-card.card--platform {
+  border-left: 4px solid var(--accent-purple);
+}
+.work-card.card--platform .kicker {
+  background: color-mix(in srgb, var(--accent-purple), transparent 90%);
+  color: var(--accent-purple);
+  border-color: color-mix(in srgb, var(--accent-purple), transparent 70%);
+}
+
+/* Заголовок карточки */
+.work-card__header {
+  margin-bottom: auto;
+}
+
 .kicker {
-  display: inline-block; font-size: 12px; letter-spacing: .18em; text-transform: uppercase;
-  opacity: .85; background: rgba(255,255,255,.08);
-  padding: 4px 8px; border-radius: 999px; border: 1px solid rgba(255,255,255,.2);
-  backdrop-filter: blur(4px);
+  display: inline-block; 
+  font-size: 11px; 
+  letter-spacing: .2em; 
+  text-transform: uppercase;
+  font-weight: 700;
+  background: color-mix(in srgb, var(--accent-weak), transparent 40%);
+  color: var(--muted);
+  padding: 6px 12px; 
+  border-radius: 6px; 
+  border: 1px solid var(--accent-weak);
+  margin-bottom: 16px;
 }
+
 .work-card h3 {
-  margin: 10px 0 6px; font-size: clamp(20px, 3.2vw, 28px); line-height: 1.1; letter-spacing: -0.01em;
+  margin: 0 0 12px; 
+  font-size: clamp(20px, 3.2vw, 24px); 
+  line-height: 1.2; 
+  letter-spacing: -0.01em;
+  color: var(--text);
+  font-weight: 700;
 }
-.work-card p { margin: 0; opacity: .9; }
+
+.work-card p {
+  margin: 0; 
+  color: var(--muted); 
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Иконка проекта */
+.work-card__icon {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  background: color-mix(in srgb, var(--accent-weak), transparent 70%);
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.work-card.card--exhibition .work-card__icon {
+  background: color-mix(in srgb, var(--accent-blue), transparent 85%);
+  color: var(--accent-blue);
+}
+
+.work-card.card--mdm .work-card__icon {
+  background: color-mix(in srgb, var(--accent-green), transparent 85%);
+  color: var(--accent-green);
+}
+
+.work-card.card--platform .work-card__icon {
+  background: color-mix(in srgb, var(--accent-purple), transparent 85%);
+  color: var(--accent-purple);
+}
+
+/* Удаляем старые стили overlay */
+.work-card__overlay { display: none; }
+.work-card::before { display: none; }
 
 /* Круглая кнопка ℹ️ — скрыта (удалена) */
 .more-btn { display: none !important; }
@@ -223,7 +325,6 @@ a:hover { color: var(--link-hover); }
 .btn--more:active {
   background: color-mix(in srgb, var(--text), transparent 82%);
 }
-
 
 /* Иконка ℹ︎ — монохром под тему сайта */
 .info-icon {
@@ -392,7 +493,7 @@ dialog.info-modal::backdrop { background: rgba(0,0,0,.45); backdrop-filter: blur
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  align-self: flex-end;   /* вся строка выравнена вправо, как раньше кнопка */
+  align-self: flex-end;
   margin-top: 12px;
 }
 
@@ -401,4 +502,3 @@ dialog.info-modal::backdrop { background: rgba(0,0,0,.45); backdrop-filter: blur
   align-self: center;
   margin-top: 0;
 }
-
