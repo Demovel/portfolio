@@ -147,7 +147,8 @@ if (!prefersReduced && 'IntersectionObserver' in window) {
       openModal({
         title: card.getAttribute('data-modal-title'),
         body:  card.getAttribute('data-modal-body'),
-        img:   card.getAttribute('data-modal-img')
+        img:   card.getAttribute('data-modal-img'),
+        pdf:   card.getAttribute('data-modal-pdf')
       });
       return;
     }
@@ -176,7 +177,8 @@ if (!prefersReduced && 'IntersectionObserver' in window) {
       openModal({
         title: targetCard.getAttribute('data-modal-title'),
         body:  targetCard.getAttribute('data-modal-body'),
-        img:   targetCard.getAttribute('data-modal-img')
+        img:   targetCard.getAttribute('data-modal-img'),
+        pdf:   targetCard.getAttribute('data-modal-pdf')
       });
     }
   });
