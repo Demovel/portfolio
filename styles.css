@@ -215,6 +215,7 @@ a:hover { color: var(--link-hover); }
   background: color-mix(in srgb, var(--accent-weak), transparent 55%);
 }
 
+
 .info-icon {
   display: inline-grid; place-items: center;
   width: 18px; height: 18px; border-radius: 999px;
@@ -359,4 +360,12 @@ dialog.info-modal::backdrop { background: rgba(0,0,0,.45); backdrop-filter: blur
 .modal-content .btn--more {
   margin-top: 20px;
   display: inline-flex;
+}
+.modal-content {
+  display: flex;
+  flex-direction: column;
+}
+.modal-content{
+  align-self: flex-end;
+  margin-top: 12px;
 }
