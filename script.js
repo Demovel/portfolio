@@ -79,9 +79,20 @@ if (!prefersReduced && 'IntersectionObserver' in window) {
   const okBtn = modal.querySelector('[data-close]');
   let lastTriggerEl = null;
 
-  function openModal({ title, body, img }) {
+  function openModal({ title, body, img, pdf }) {  // Добавлен pdf
     titleEl.textContent = title || 'Информация';
     bodyEl.innerHTML = body || 'Описание отсутствует.';
+    
+    // Добавляем кнопку "Подробнее" в конец body, если есть PDF
+    if (pdf) {
+      const moreBtn = document.createElement('a');
+      moreBtn.className = 'btn btn--ghost btn--more';
+      moreBtn.href = pdf;
+      moreBtn.download = true;
+      moreBtn.innerHTML = 'Подробнее <span class="info-icon" tabindex="0" aria-label="Подсказка" data-tip="Полную информацию о проекте можно получить в формате PDF. Документ включает детальное описание всех этапов работы, достигнутых результатов и потенциальных рисков.">ℹ️</span>';
+      bodyEl.appendChild(moreBtn);
+    }
+    
     if (img) {
       coverEl.src = img;
       coverEl.style.display = 'block';
@@ -94,6 +105,7 @@ if (!prefersReduced && 'IntersectionObserver' in window) {
     try { modal.showModal(); } catch { modal.setAttribute('open', ''); }
     closeBtn?.focus();
   }
+  
   function closeModal() {
     try { modal.close(); } catch { modal.removeAttribute('open'); }
     if (lastTriggerEl && typeof lastTriggerEl.focus === 'function') lastTriggerEl.focus();
@@ -119,7 +131,8 @@ if (!prefersReduced && 'IntersectionObserver' in window) {
         openModal({
           title: card.getAttribute('data-modal-title'),
           body:  card.getAttribute('data-modal-body'),
-          img:   card.getAttribute('data-modal-img')
+          img:   card.getAttribute('data-modal-img'),
+          pdf:   card.getAttribute('data-modal-pdf')
         });
       }
       return;

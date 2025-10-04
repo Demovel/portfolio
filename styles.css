@@ -355,3 +355,7 @@ dialog.info-modal::backdrop { background: rgba(0,0,0,.45); backdrop-filter: blur
 
 /* ====== ДОП. ДОСТУПНОСТЬ ====== */
 .card-clickable:focus { outline: 3px solid color-mix(in srgb, var(--text), transparent 60%); outline-offset: 2px; }
+.modal-content .btn--more {
+  margin-top: 20px;
+  display: inline-flex;
+}
