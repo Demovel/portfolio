@@ -365,7 +365,7 @@ dialog.info-modal::backdrop { background: rgba(0,0,0,.45); backdrop-filter: blur
   display: flex;
   flex-direction: column;
 }
-.modal-content{
+.modal-content .btn--more{
   align-self: flex-end;
-  margin-top: 12px;
+  margin-top: 20px;
 }
