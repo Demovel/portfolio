@@ -224,15 +224,7 @@ a:hover { color: var(--link-hover); }
   cursor: help;
   position: relative;
   outline: none;
-}
-.info-icon__glyph {
-  position: absolute;
-  font-size: 10px;
-  line-height: 1;
-  font-weight: 700;
-  color: currentColor;
-  inset: 50% auto auto 50%;
-  transform: translate(-50%, -50%);
+  color: var(--muted);
 }
 .info-icon:focus-visible {
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--text), transparent 70%);
