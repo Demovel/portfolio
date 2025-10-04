@@ -141,11 +141,10 @@ a:hover { color: var(--link-hover); }
   display: inline-block; white-space: nowrap; padding: 16px 0;
   font-weight: 800; letter-spacing: .05em; font-size: clamp(16px, 2vw, 20px);
   animation: marquee 32s linear infinite;
-  margin-right: 32px;
 }
 @keyframes marquee {
   from { transform: translateX(0); }
-  to { transform: translateX(-100%); }
+  to { transform: translateX(-50%); } /* контент продублирован в HTML для бесшовности */
 }
 
 /* ====== СЕКЦИОННЫЕ ЗАГОЛОВКИ ====== */
@@ -159,13 +158,18 @@ a:hover { color: var(--link-hover); }
 .work { padding: clamp(28px, 6vw, 72px) 0; }
 .work-grid {
   display: grid; gap: 20px;
-  grid-template-columns: repeat(12, 1fr);
+  grid-template-columns: repeat(3, 1fr); /* три карточки в ряд на широких */
+}
+@media (max-width: 1280px) and (min-width: 901px) {
+  .work-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 900px) {
+  .work-grid { grid-template-columns: 1fr; }
 }
 .work-card {
   position: relative; overflow: hidden; border-radius: 18px;
   background: var(--card-bg);
   min-height: 280px;
-  grid-column: span 6;
   background-image: var(--bg);
   background-repeat: no-repeat; background-position: center; background-size: cover;
   box-shadow: var(--elev);
@@ -178,10 +182,6 @@ a:hover { color: var(--link-hover); }
   mix-blend-mode: multiply; z-index: 0;
 }
 .work-card:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(0,0,0,.14); }
-
-@media (max-width: 1100px) {
-  .work-card { grid-column: span 12; }
-}
 
 .work-card__overlay {
   position: absolute; inset: auto 16px 16px 16px; z-index: 1;
@@ -198,18 +198,79 @@ a:hover { color: var(--link-hover); }
 }
 .work-card p { margin: 0; opacity: .9; }
 
-/* Кнопка ℹ️ */
-.more-btn {
-  position: absolute; top: 12px; right: 12px;
-  border: none; background: rgba(0,0,0,0.3); color: #fff;
-  border-radius: 999px; width: 34px; height: 34px;
-  display: grid; place-items: center; cursor: pointer; font-weight: 700;
-  transition: background .2s, transform .1s;
-  z-index: 1; box-shadow: 0 2px 8px rgba(0,0,0,.25);
+/* Круглая кнопка ℹ️ — скрыта (удалена) */
+.more-btn { display: none !important; }
+
+/* Кнопка «Подробнее» (серая, скруглённая) + иконка ℹ️ */
+.btn--more {
+  margin-top: 10px;
+  border: 1px solid var(--accent-weak);
+  background: color-mix(in srgb, var(--accent-weak), transparent 70%);
+  color: var(--text);
+  border-radius: 999px;
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 14px;
 }
-.work-card:hover .more-btn { background: rgba(0,0,0,0.42); }
-.more-btn:active { transform: scale(.96); }
-.more-btn span { font-size: 16px; line-height: 1; }
+.btn--more:hover {
+  background: color-mix(in srgb, var(--accent-weak), transparent 55%);
+}
+
+.info-icon {
+  display: inline-grid; place-items: center;
+  width: 18px; height: 18px; border-radius: 999px;
+  font-size: 14px; line-height: 1;
+  border: 1px solid var(--accent-weak);
+  background: transparent;
+  cursor: help;
+  position: relative;
+  outline: none;
+}
+.info-icon:focus-visible {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--text), transparent 70%);
+  border-radius: 50%;
+}
+
+/* КАСТОМНЫЙ ТУЛТИП ДЛЯ ℹ️ (без title) */
+.info-icon[data-tip]::after {
+  content: attr(data-tip);
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 10px);
+  transform: translateX(-50%);
+  min-width: 220px;
+  max-width: 280px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--card-bg), var(--text) 8%);
+  border: 1px solid var(--accent-weak);
+  color: var(--text);
+  font-size: 12px;
+  line-height: 1.45;
+  box-shadow: 0 8px 20px rgba(0,0,0,.15);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .18s ease, transform .18s ease;
+  transform-origin: bottom center;
+}
+.info-icon[data-tip]::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 6px);
+  transform: translateX(-50%) rotate(45deg);
+  width: 10px; height: 10px;
+  background: color-mix(in srgb, var(--card-bg), var(--text) 8%);
+  border-left: 1px solid var(--accent-weak);
+  border-top: 1px solid var(--accent-weak);
+  opacity: 0;
+  transition: opacity .18s ease;
+}
+.info-icon:hover::after,
+.info-icon:hover::before,
+.info-icon:focus::after,
+.info-icon:focus::before {
+  opacity: 1;
+}
 
 /* ====== ABOUT ====== */
 .about { padding: clamp(28px, 6vw, 80px) 0; border-top: 1px solid var(--accent-weak); border-bottom: 1px solid var(--accent-weak); }
