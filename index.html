@@ -47,10 +47,18 @@
         </div>
       </div>
       <figure class="hero-col hero-col--visual">
-        <img src="zlata1.webp" alt="Портрет — Поддубная Златислава" />
+        <picture>
+          <source media="(min-width: 901px)" 
+                  srcset="zlata-900.webp 1x, zlata-1200.webp 2x">
+          <source media="(max-width: 900px)" 
+              srcset="zlata-600.webp 1x, zlata-900.webp 2x">
+          <img src="zlata-900.webp" 
+           srcset="zlata-600.webp 600w, zlata-900.webp 900w, zlata-1200.webp 1200w"
+           sizes="(max-width: 900px) 90vw, (min-width: 901px) 45vw, 540px"
+           alt="Портрет — Поддубная Златислава">
+        </picture>
       </figure>
     </div>
-
     <div class="rail rail--left">PROJECT MANAGER</div>
   </section>
 
