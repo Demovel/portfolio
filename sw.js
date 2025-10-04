@@ -4,10 +4,7 @@ const urlsToCache = [
   '/',
   '/styles.css',
   '/script.js',
-  '/zlata1.png',
-  '/images/proj_pmgf.jpg',
-  '/images/proj_nsi.jpg',
-  '/images/proj_hr.jpg'
+  '/zlata1.webp'
 ];
 
 self.addEventListener('install', (event) => {
