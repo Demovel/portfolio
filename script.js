@@ -89,9 +89,7 @@ if (!prefersReduced && 'IntersectionObserver' in window) {
       moreBtn.className = 'btn btn--ghost btn--more';
       moreBtn.href = pdf;
       moreBtn.download = true;
-      moreBtn.innerHTML = 'Подробнее <span class="info-icon" tabindex="0" aria-label="Подсказка" data-tip="Полную информацию о проекте можно получить в формате PDF. Документ включает детальное описание всех этапов работы, достигнутых результатов и потенциальных рисков.">ℹ️</span>';
-      bodyEl.appendChild(moreBtn);
-    }
+      moreBtn.innerHTML = 'Подробнее <span class="info-icon" tabindex="0" aria-label="Подсказка" data-tip="Полную информацию о проекте можно получить в формате PDF. Документ включает детальное описание всех этапов работы, достигнутых результатов и потенциальных рисков."><svg class="info-icon__svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false" role="img" width="14" height="14"><circle cx="12" cy="12" r="9" /></svg><span class="info-icon__glyph" aria-hidden="true">i</span></span>';    }
     
     if (img) {
       coverEl.src = img;
