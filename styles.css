@@ -144,7 +144,7 @@ a:hover { color: var(--link-hover); }
 }
 @keyframes marquee {
   from { transform: translateX(0); }
-  to { transform: translateX(-100%); } /* контент продублирован в HTML для бесшовности */
+  to { transform: translateX(-50%); } /* контент продублирован в HTML для бесшовности */
 }
 
 /* ====== СЕКЦИОННЫЕ ЗАГОЛОВКИ ====== */
