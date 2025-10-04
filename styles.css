@@ -201,35 +201,53 @@ a:hover { color: var(--link-hover); }
 /* Круглая кнопка ℹ️ — скрыта (удалена) */
 .more-btn { display: none !important; }
 
-/* Кнопка «Подробнее» (серая, скруглённая) + иконка ℹ️ */
+/* Кнопка «Подробнее» — монохром под тему сайта */
 .btn--more {
   margin-top: 10px;
-  border: 1px solid var(--accent-weak);
-  background: color-mix(in srgb, var(--accent-weak), transparent 70%);
+  border: 1px solid color-mix(in srgb, var(--text), transparent 70%);
+  background: color-mix(in srgb, var(--text), transparent 92%);
   color: var(--text);
   border-radius: 999px;
   display: inline-flex; align-items: center; gap: 8px;
   padding: 10px 14px;
+  transition: background .2s ease, border-color .2s ease, box-shadow .2s ease, color .2s ease;
 }
 .btn--more:hover {
-  background: color-mix(in srgb, var(--accent-weak), transparent 55%);
+  background: color-mix(in srgb, var(--text), transparent 86%);
+  border-color: color-mix(in srgb, var(--text), transparent 60%);
+}
+.btn--more:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--text), transparent 70%);
+}
+.btn--more:active {
+  background: color-mix(in srgb, var(--text), transparent 82%);
 }
 
 
+/* Иконка ℹ︎ — монохром под тему сайта */
 .info-icon {
   display: inline-grid; place-items: center;
   width: 18px; height: 18px; border-radius: 999px;
   font-size: 14px; line-height: 1;
-  border: 1px solid var(--accent-weak);
-  background: transparent;
+  color: var(--text);
+  border: 1px solid color-mix(in srgb, var(--text), transparent 70%);
+  background: color-mix(in srgb, var(--text), transparent 92%);
   cursor: help;
   position: relative;
   outline: none;
-  color: var(--muted);
+  transition: background .2s ease, border-color .2s ease, box-shadow .2s ease, color .2s ease;
+}
+.info-icon:hover {
+  background: color-mix(in srgb, var(--text), transparent 86%);
+  border-color: color-mix(in srgb, var(--text), transparent 60%);
 }
 .info-icon:focus-visible {
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--text), transparent 70%);
   border-radius: 50%;
+}
+.info-icon:active {
+  background: color-mix(in srgb, var(--text), transparent 82%);
 }
 
 /* КАСТОМНЫЙ ТУЛТИП ДЛЯ ℹ️ (без title) */
