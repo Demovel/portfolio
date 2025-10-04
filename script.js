@@ -88,8 +88,26 @@ if (!prefersReduced && 'IntersectionObserver' in window) {
       const moreBtn = document.createElement('a');
       moreBtn.className = 'btn btn--ghost btn--more';
       moreBtn.href = pdf;
-      moreBtn.download = true;
-      moreBtn.innerHTML = 'Подробнее <span class="info-icon" tabindex="0" aria-label="Подсказка" data-tip="Полную информацию о проекте можно получить в формате PDF. Документ включает детальное описание всех этапов работы, достигнутых результатов и потенциальных рисков.">ℹ︎</span>';}    
+      moreBtn.setAttribute('download', '');
+    
+      // Текст "Подробнее "
+      moreBtn.append(document.createTextNode('Подробнее '));
+    
+      // Иконка ℹ︎ как текстовая вариация (монохром)
+      const infoIcon = document.createElement('span');
+      infoIcon.className = 'info-icon';
+      infoIcon.tabIndex = 0;
+      infoIcon.setAttribute('aria-label', 'Подсказка');
+      infoIcon.setAttribute(
+        'data-tip',
+        'Полную информацию о проекте можно получить в формате PDF. Документ включает детальное описание всех этапов работы, достигнутых результатов и потенциальных рисков.'
+      );
+      // Гарантированная текстовая версия символа: U+2139 + U+FE0E
+      infoIcon.textContent = '\u2139\uFE0E';
+    
+      moreBtn.appendChild(infoIcon);
+      bodyEl.appendChild(moreBtn);
+    }      
     if (img) {
       coverEl.src = img;
       coverEl.style.display = 'block';
