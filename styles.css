@@ -369,3 +369,18 @@ dialog.info-modal::backdrop { background: rgba(0,0,0,.45); backdrop-filter: blur
   align-self: flex-end;
   margin-top: 12px;
 }
+/* Строка с иконкой и кнопкой в модалке */
+.modal-content .more-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-end;   /* вся строка выравнена вправо, как раньше кнопка */
+  margin-top: 12px;
+}
+
+/* Сбрасываем устаревшее выравнивание у кнопки внутри строки */
+.modal-content .more-row .btn--more {
+  align-self: center;
+  margin-top: 0;
+}
+

@@ -79,21 +79,17 @@ if (!prefersReduced && 'IntersectionObserver' in window) {
   const okBtn = modal.querySelector('[data-close]');
   let lastTriggerEl = null;
 
-  function openModal({ title, body, img, pdf }) {  // Добавлен pdf
+  function openModal({ title, body, img, pdf }) {  
     titleEl.textContent = title || 'Информация';
     bodyEl.innerHTML = body || 'Описание отсутствует.';
     
-    // Добавляем кнопку "Подробнее" в конец body, если есть PDF
+    // Добавляем строку с иконкой и кнопкой, если есть PDF
     if (pdf) {
-      const moreBtn = document.createElement('a');
-      moreBtn.className = 'btn btn--ghost btn--more';
-      moreBtn.href = pdf;
-      moreBtn.setAttribute('download', '');
+      // Контейнер-строка для выравнивания иконки слева от кнопки
+      const row = document.createElement('div');
+      row.className = 'more-row';
     
-      // Текст "Подробнее "
-      moreBtn.append(document.createTextNode('Подробнее '));
-    
-      // Иконка ℹ︎ как текстовая вариация (монохром)
+      // Иконка ℹ︎ (отдельно от кнопки)
       const infoIcon = document.createElement('span');
       infoIcon.className = 'info-icon';
       infoIcon.tabIndex = 0;
@@ -102,12 +98,21 @@ if (!prefersReduced && 'IntersectionObserver' in window) {
         'data-tip',
         'Полную информацию о проекте можно получить в формате PDF. Документ включает детальное описание всех этапов работы, достигнутых результатов и потенциальных рисков.'
       );
-      // Гарантированная текстовая версия символа: U+2139 + U+FE0E
-      infoIcon.textContent = '\u2139\uFE0E';
+      infoIcon.textContent = '\u2139\uFE0E'; // ℹ︎
     
-      moreBtn.appendChild(infoIcon);
-      bodyEl.appendChild(moreBtn);
-    }      
+      // Кнопка «Подробнее» (без иконки)
+      const moreBtn = document.createElement('a');
+      moreBtn.className = 'btn btn--ghost btn--more';
+      moreBtn.href = pdf;
+      moreBtn.setAttribute('download', '');
+      moreBtn.textContent = 'Подробнее';
+    
+      // Сначала иконка, потом кнопка
+      row.appendChild(infoIcon);
+      row.appendChild(moreBtn);
+    
+      bodyEl.appendChild(row);
+    }   
     if (img) {
       coverEl.src = img;
       coverEl.style.display = 'block';
