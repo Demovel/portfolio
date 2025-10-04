@@ -11,13 +11,6 @@
 
   --link: var(--text);
   --link-hover: #3a3a3a;
-  
-  /* Цветовые акценты для проектов */
-  --accent-blue: #2563eb;
-  --accent-green: #059669;
-  --accent-purple: #7c3aed;
-  --accent-orange: #ea580c;
-  --accent-pink: #db2777;
 }
 body.dark {
   --bg: #0b0b0b;
@@ -29,12 +22,6 @@ body.dark {
 
   --link: var(--accent);
   --link-hover: #cfcfcf;
-  
-  --accent-blue: #3b82f6;
-  --accent-green: #10b981;
-  --accent-purple: #8b5cf6;
-  --accent-orange: #f97316;
-  --accent-pink: #ec4899;
 }
 
 html { scroll-behavior: smooth; }
@@ -167,7 +154,7 @@ a:hover { color: var(--link-hover); }
 }
 .lead { margin: 6px 0 0; color: var(--muted); }
 
-/* ====== WORK GRID (ОБНОВЛЕННЫЙ ДИЗАЙН БЕЗ КАРТИНОК) ====== */
+/* ====== WORK GRID (МОНОХРОМНЫЙ ДИЗАЙН БЕЗ КАРТИНОК) ====== */
 .work { padding: clamp(28px, 6vw, 72px) 0; }
 .work-grid {
   display: grid; gap: 20px;
@@ -180,7 +167,7 @@ a:hover { color: var(--link-hover); }
   .work-grid { grid-template-columns: 1fr; }
 }
 
-/* НОВЫЙ ДИЗАЙН КАРТОЧЕК ПРОЕКТОВ */
+/* МОНОХРОМНЫЙ ДИЗАЙН КАРТОЧЕК ПРОЕКТОВ */
 .work-card {
   position: relative; 
   border-radius: 18px;
@@ -199,34 +186,6 @@ a:hover { color: var(--link-hover); }
   transform: translateY(-4px); 
   box-shadow: 0 18px 40px rgba(0,0,0,.14);
   border-color: color-mix(in srgb, var(--accent-weak), var(--text) 15%);
-}
-
-/* Цветовые варианты карточек */
-.work-card.card--exhibition {
-  border-left: 4px solid var(--accent-blue);
-}
-.work-card.card--exhibition .kicker {
-  background: color-mix(in srgb, var(--accent-blue), transparent 90%);
-  color: var(--accent-blue);
-  border-color: color-mix(in srgb, var(--accent-blue), transparent 70%);
-}
-
-.work-card.card--mdm {
-  border-left: 4px solid var(--accent-green);
-}
-.work-card.card--mdm .kicker {
-  background: color-mix(in srgb, var(--accent-green), transparent 90%);
-  color: var(--accent-green);
-  border-color: color-mix(in srgb, var(--accent-green), transparent 70%);
-}
-
-.work-card.card--platform {
-  border-left: 4px solid var(--accent-purple);
-}
-.work-card.card--platform .kicker {
-  background: color-mix(in srgb, var(--accent-purple), transparent 90%);
-  color: var(--accent-purple);
-  border-color: color-mix(in srgb, var(--accent-purple), transparent 70%);
 }
 
 /* Заголовок карточки */
@@ -279,21 +238,6 @@ a:hover { color: var(--link-hover); }
   background: color-mix(in srgb, var(--accent-weak), transparent 70%);
   color: var(--muted);
   font-weight: 600;
-}
-
-.work-card.card--exhibition .work-card__icon {
-  background: color-mix(in srgb, var(--accent-blue), transparent 85%);
-  color: var(--accent-blue);
-}
-
-.work-card.card--mdm .work-card__icon {
-  background: color-mix(in srgb, var(--accent-green), transparent 85%);
-  color: var(--accent-green);
-}
-
-.work-card.card--platform .work-card__icon {
-  background: color-mix(in srgb, var(--accent-purple), transparent 85%);
-  color: var(--accent-purple);
 }
 
 /* Удаляем старые стили overlay */
