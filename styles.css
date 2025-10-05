@@ -58,7 +58,28 @@ a:hover { color: var(--link-hover); }
   padding: 8px 10px; border: 2px solid var(--text); border-radius: 10px;
 }
 .site-nav { display: flex; align-items: center; gap: 22px; }
-.site-nav a { font-weight: 600; }
+.site-nav a { 
+  font-weight: 600;
+  position: relative;
+  transition: color .2s ease;
+}
+
+/* Активная ссылка в навигации */
+.site-nav a.active {
+  color: var(--text);
+}
+.site-nav a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  background: var(--text);
+  border-radius: 50%;
+}
+
 .theme-toggle {
   appearance: none; border: 1px solid var(--accent-weak); background: transparent; color: var(--text);
   border-radius: 999px; padding: 6px 10px; cursor: pointer; font-weight: 700;
@@ -66,6 +87,92 @@ a:hover { color: var(--link-hover); }
 }
 .theme-toggle:hover { background: color-mix(in srgb, var(--accent-weak), transparent 40%); }
 .theme-toggle:active { transform: translateY(1px); }
+
+/* ====== МОБИЛЬНАЯ НАВИГАЦИЯ ====== */
+.mobile-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  z-index: 101;
+}
+
+.mobile-toggle span {
+  display: block;
+  height: 2px;
+  width: 20px;
+  background: var(--text);
+  transition: all 0.3s ease;
+  border-radius: 1px;
+}
+
+.mobile-toggle.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.mobile-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.mobile-toggle.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -6px);
+}
+
+@media (max-width: 768px) {
+  .mobile-toggle {
+    display: flex;
+  }
+  
+  .header-inner {
+    position: relative;
+  }
+  
+  .site-nav {
+    position: fixed;
+    top: 72px;
+    left: 0;
+    right: 0;
+    background: var(--bg);
+    border-bottom: 1px solid var(--accent-weak);
+    flex-direction: column;
+    padding: 20px 0;
+    gap: 16px;
+    transform: translateY(-100vh);
+    transition: transform 0.3s ease;
+    z-index: 99;
+    box-shadow: var(--elev);
+  }
+  
+  .site-nav.active {
+    transform: translateY(0);
+  }
+  
+  .site-nav a {
+    padding: 12px 20px;
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid var(--accent-weak);
+    font-size: 18px;
+  }
+  
+  .site-nav a:last-of-type {
+    border-bottom: none;
+  }
+  
+  .site-nav a.active::after {
+    bottom: 8px;
+  }
+  
+  .theme-toggle {
+    margin: 10px 20px;
+    width: calc(100% - 40px);
+    text-align: center;
+    justify-content: center;
+  }
+}
 
 /* ====== HERO (split) ====== */
 .hero { position: relative; overflow: hidden; border-bottom: 1px solid var(--accent-weak); }
@@ -131,6 +238,14 @@ a:hover { color: var(--link-hover); }
   border: 1px solid var(--accent-weak);
 }
 .btn--ghost:hover { background: color-mix(in srgb, var(--accent-weak), transparent 50%); }
+
+/* ====== CTA КНОПКИ (БАЗОВЫЕ СТИЛИ) ====== */
+.cta-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
 
 /* ====== MARQUEE ====== */
 .marquee {
@@ -364,9 +479,21 @@ a:hover { color: var(--link-hover); }
 .stat__label { color: var(--muted); font-size: 14px; }
 
 /* ====== CONTACTS ====== */
-.contacts { padding: clamp(32px, 6vw, 90px) 0; }
-.contacts-inner { display: grid; gap: 20px; }
-.contacts-text h2 { margin: 0 0 6px; font-size: clamp(28px, 4vw, 40px); }
+.contacts {
+  padding: clamp(32px, 6vw, 90px) 0;
+}
+
+.contacts-inner {
+  display: grid;
+  gap: 24px;
+  text-align: center;
+}
+
+.contacts-text h2 {
+  margin: 0 0 20px;
+  font-size: clamp(28px, 4vw, 40px);
+}
+
 .contact-list { display: grid; gap: 8px; margin: 14px 0 18px; }
 .contact-list a { text-decoration: underline; text-underline-offset: 3px; }
 
@@ -446,93 +573,19 @@ dialog.info-modal::backdrop { background: rgba(0,0,0,.45); backdrop-filter: blur
   align-self: center;
   margin-top: 0;
 }
-/* ====== МОБИЛЬНАЯ НАВИГАЦИЯ ====== */
-@media (max-width: 768px) {
-  .header-inner {
-    position: relative;
-  }
-  
-  .site-nav {
-    position: fixed;
-    top: 72px;
-    left: 0;
-    right: 0;
-    background: var(--bg);
-    border-bottom: 1px solid var(--accent-weak);
-    flex-direction: column;
-    padding: 20px 0;
-    gap: 16px;
-    transform: translateY(-100vh);
-    transition: transform 0.3s ease;
-    z-index: 99;
-  }
-  
-  .site-nav.active {
-    transform: translateY(0);
-  }
-  
-  .site-nav a {
-    padding: 12px 20px;
-    width: 100%;
-    text-align: center;
-    border-bottom: 1px solid var(--accent-weak);
-  }
-  
-  .theme-toggle {
-    margin: 10px 20px;
-    width: calc(100% - 40px);
-    text-align: center;
-  }
-  
-  /* Гамбургер кнопка */
-  .mobile-toggle {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 8px;
-  }
-  
-  .mobile-toggle span {
-    display: block;
-    height: 2px;
-    width: 20px;
-    background: var(--text);
-    transition: all 0.3s ease;
-  }
-  
-  .mobile-toggle.active span:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
-  }
-  
-  .mobile-toggle.active span:nth-child(2) {
-    opacity: 0;
-  }
-  
-  .mobile-toggle.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(7px, -6px);
-  }
-}
-
-@media (min-width: 769px) {
-  .mobile-toggle {
-    display: none;
-  }
-}
 
 /* ====== УЛУЧШЕНИЯ ДЛЯ МОБИЛЬНЫХ ====== */
 @media (max-width: 768px) {
   /* Увеличиваем минимальные размеры тач-элементов */
   .btn {
-    min-height: 44px;
-    padding: 14px 18px;
+    min-height: 48px;
+    padding: 14px 20px;
+    font-size: 16px;
   }
   
   .theme-toggle {
-    min-height: 44px;
-    min-width: 44px;
+    min-height: 48px;
+    min-width: 48px;
   }
   
   .work-card {
@@ -546,15 +599,19 @@ dialog.info-modal::backdrop { background: rgba(0,0,0,.45); backdrop-filter: blur
     gap: 12px;
   }
   
-  /* Контакты */
+  /* ИСПРАВЛЕНИЕ ДЛЯ CTA КНОПОК */
   .cta-row {
     flex-direction: column;
     align-items: stretch;
+    gap: 16px;
+    width: 100%;
   }
   
   .cta-row .btn {
     width: 100%;
     text-align: center;
+    justify-content: center;
+    white-space: nowrap;
   }
   
   /* Модальные окна */
@@ -570,6 +627,28 @@ dialog.info-modal::backdrop { background: rgba(0,0,0,.45); backdrop-filter: blur
   
   .modal-header {
     padding: 14px 16px;
+  }
+  
+  /* Contacts section на мобильных */
+  .contacts-inner {
+    text-align: center;
+  }
+  
+  /* Footer на мобильных */
+  .footer-inner {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+}
+
+@media (min-width: 769px) {
+  .contacts-inner {
+    text-align: left;
+  }
+  
+  .cta-row {
+    justify-content: flex-start;
   }
 }
 
@@ -608,6 +687,30 @@ dialog.info-modal::backdrop { background: rgba(0,0,0,.45); backdrop-filter: blur
   .section-head h2 {
     font-size: clamp(24px, 6vw, 32px);
   }
+  
+  /* ДОПОЛНИТЕЛЬНЫЕ УЛУЧШЕНИЯ ДЛЯ ОЧЕНЬ МАЛЕНЬКИХ ЭКРАНОВ */
+  .cta-row {
+    gap: 14px;
+  }
+  
+  .cta-row .btn {
+    font-size: 15px;
+    padding: 16px 20px;
+    min-height: 52px;
+  }
+  
+  /* Уменьшаем длинные тексты на кнопках если нужно */
+  .cta-row .btn {
+    hyphens: none;
+    word-break: keep-all;
+  }
+  
+  /* Тултип на маленьких экранах */
+  .info-icon[data-tip]::after {
+    min-width: 180px;
+    max-width: 240px;
+    font-size: 11px;
+  }
 }
 
 /* ====== LANDSCAPE МОБИЛЬНЫЕ ====== */
@@ -620,4 +723,54 @@ dialog.info-modal::backdrop { background: rgba(0,0,0,.45); backdrop-filter: blur
     max-height: 60vh;
     object-fit: cover;
   }
+  
+  /* В альбомной ориентации можем разместить кнопки в ряд */
+  .cta-row {
+    flex-direction: row;
+    justify-content: center;
+    gap: 16px;
+  }
+  
+  .cta-row .btn {
+    flex: 1;
+    max-width: 200px;
+  }
+  
+  /* Мобильное меню в landscape */
+  .site-nav {
+    padding: 15px 0;
+    gap: 12px;
+  }
+  
+  .site-nav a {
+    padding: 10px 20px;
+    font-size: 16px;
+  }
+}
+
+/* ====== СКРОЛЛБАР ДЛЯ ИНДИКАЦИИ ПРОГРЕССА ====== */
+.scrollbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100vh;
+  background: var(--accent-weak);
+  z-index: 1000;
+  transform-origin: top;
+  transform: scaleY(0);
+  transition: transform 0.1s ease;
+}
+
+/* ====== УТИЛИТНЫЕ КЛАССЫ ====== */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
