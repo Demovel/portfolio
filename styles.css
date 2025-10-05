@@ -201,22 +201,12 @@ a:hover { color: var(--link-hover); }
 }
 .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
 
-/* Улучшенное фото с монохромным overlay */
-.hero-col--visual {
-  position: relative;
-}
-
 .hero-col--visual img {
-  width: 100%; 
-  height: auto; 
-  border-radius: 18px;
+  width: 100%; height: auto; border-radius: 18px;
   box-shadow: var(--elev);
   object-fit: cover;
   aspect-ratio: 4 / 5;
-  position: relative;
-  z-index: 1;
 }
-
 .hero-col--visual::after {
   content: '';
   position: absolute;
@@ -227,18 +217,24 @@ a:hover { color: var(--link-hover); }
   border-radius: 18px;
   background: linear-gradient(
     135deg,
-    color-mix(in srgb, var(--text), transparent 92%) 0%,
-    transparent 40%,
-    transparent 60%,
-    color-mix(in srgb, var(--text), transparent 88%) 100%
+    color-mix(in srgb, var(--accent), transparent 92%) 0%,
+    transparent 50%,
+    color-mix(in srgb, var(--accent), transparent 88%) 100%
   );
   z-index: 2;
   pointer-events: none;
-  transition: opacity 0.3s ease;
+  opacity: 0.8;
 }
 
-.hero-col--visual:hover::after {
-  opacity: 0.7;
+/* Дополнительный эффект для темной темы */
+body.dark .hero-col--visual::after {
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--accent), transparent 95%) 0%,
+    transparent 50%,
+    color-mix(in srgb, var(--accent), transparent 90%) 100%
+  );
+  opacity: 0.6;
 }
 
 
