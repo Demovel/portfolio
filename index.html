@@ -47,7 +47,25 @@
         </div>
       </div>
       <figure class="hero-col hero-col--visual">
-        <img src="zlata1.png" alt="Портрет — Поддубная Златислава" />
+        <picture>
+          <source 
+            media="(min-width: 1200px)" 
+            srcset="zlata1.webp 1x, zlata1@2x.webp 2x"
+            type="image/webp">
+          <source 
+            media="(min-width: 768px)" 
+            srcset="zlata1-tablet.webp 1x, zlata1-tablet@2x.webp 2x"
+            type="image/webp">
+          <source 
+            media="(max-width: 767px)" 
+            srcset="zlata1-mobile.webp 1x, zlata1-mobile@2x.webp 2x"
+            type="image/webp">
+          <img 
+            src="zlata1.webp" 
+            alt="Портрет — Поддубная Zlatislava"
+            loading="eager"
+            decoding="async" />
+        </picture>
       </figure>
     </div>
     <div class="rail rail--left">PROJECT MANAGER</div>
@@ -62,13 +80,7 @@
   </div>
 
   
-  <section id="about" class="about reveal"
-    data-modal-title="Обо мне"
-    data-modal-body='
-      <p>У меня более четырех лет опыта в управлении проектами. Я занимаюсь комплексным анализом, планированием, организацией, контролем и завершением проектов разной сложности и масштаба. Управляю проектами по Agile и Waterfall: 10 проектов успешно завершены в срок и в рамках бюджета. Могу запускать проекты с нуля и подключаться на любом этапе. Участвовала в пресейл-процессах и защищала проекты перед реестром отечественного программного обеспечения.</p>
-      <p>Мои знания в области QA помогают улучшать качество продуктов, делать процессы прозрачнее и прогнозировать сроки.</p>
-      <p>Выполняла функции ведущего руководителя проектов: организовала, подготовила и руководила программой проектов для успешной презентации на Петербургском международном газовом форуме 2024 (ПМГФ 2024).</p>
-    '>
+  <section id="about" class="about reveal">
     <div class="container">
       <div class="section-head">
         <h2>Обо мне</h2>
@@ -245,7 +257,7 @@
   <footer class="site-footer reveal">
     <div class="container footer-inner">
       <div class="footer-brand">ZL</div>
-      <div class="footer-copy">© 2025 Zlatislава Поддубная</div>
+      <div class="footer-copy">© 2025 Zlatislava Поддубная</div>
     </div>
   </footer>
 
