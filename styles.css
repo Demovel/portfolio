@@ -201,22 +201,47 @@ a:hover { color: var(--link-hover); }
 }
 .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
 
-/* Улучшенное фото с монохромным overlay */
+/* ====== HERO ФОТО С МОНОХРОМНЫМ OVERLAY ====== */
 .hero-col--visual {
   position: relative;
+  overflow: hidden;
+  border-radius: 18px;
+  box-shadow: var(--elev);
 }
 
 .hero-col--visual img {
   width: 100%; 
   height: auto; 
-  border-radius: 18px;
-  box-shadow: var(--elev);
   object-fit: cover;
   aspect-ratio: 4 / 5;
-  position: relative;
-  z-index: 1;
+  display: block;
+  border-radius: 18px;
+  /* Убираем box-shadow отсюда, так как он теперь на контейнере */
 }
 
+/* Монохромный overlay поверх фото */
+.hero-col--visual::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--text), transparent 88%) 0%,
+    transparent 25%,
+    transparent 75%,
+    color-mix(in srgb, var(--text), transparent 85%) 100%
+  );
+  border-radius: 18px;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+/* Дополнительный тонирующий слой для лучшей интеграции */
 .hero-col--visual::after {
   content: '';
   position: absolute;
@@ -224,21 +249,38 @@ a:hover { color: var(--link-hover); }
   left: 0;
   right: 0;
   bottom: 0;
+  background: color-mix(in srgb, var(--text), transparent 96%);
   border-radius: 18px;
-  background: linear-gradient(
-    135deg,
-    color-mix(in srgb, var(--text), transparent 92%) 0%,
-    transparent 40%,
-    transparent 60%,
-    color-mix(in srgb, var(--text), transparent 88%) 100%
-  );
   z-index: 2;
   pointer-events: none;
-  transition: opacity 0.3s ease;
+  mix-blend-mode: multiply;
+  opacity: 0.8;
+}
+
+/* Hover эффект для интерактивности */
+.hero-col--visual:hover::before {
+  opacity: 0.3;
 }
 
 .hero-col--visual:hover::after {
-  opacity: 0.7;
+  opacity: 0.5;
+}
+
+/* Адаптация для темной темы */
+body.dark .hero-col--visual::before {
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--accent), transparent 92%) 0%,
+    transparent 30%,
+    transparent 70%,
+    color-mix(in srgb, var(--accent), transparent 88%) 100%
+  );
+  opacity: 0.4;
+}
+
+body.dark .hero-col--visual::after {
+  background: color-mix(in srgb, var(--accent), transparent 97%);
+  opacity: 0.6;
 }
 
 
