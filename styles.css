@@ -510,7 +510,13 @@ a:hover { color: var(--link-hover); }
   * { transition: none !important; animation: none !important; }
   .reveal { opacity: 1 !important; transform: none !important; }
 }
-
+/* Принудительная видимость footer на десктопе */
+@media (min-width: 769px) {
+  .site-footer.reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
 /* ====== MODAL ====== */
 dialog.info-modal {
   width: min(760px, 92vw); border: none; border-radius: 16px; padding: 0;
