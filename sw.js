@@ -4,7 +4,9 @@ const urlsToCache = [
   '/',
   '/styles.css',
   '/script.js',
-  '/zlata1.webp'
+  '/zlata1.webp',
+  '/zlata1-tablet.webp',
+  '/zlata1-mobile.webp'
 ];
 
 self.addEventListener('install', (event) => {
