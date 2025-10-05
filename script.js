@@ -28,12 +28,14 @@ function applyThemeMeta() {
   updateThemeButton();
   applyThemeMeta();
 })();
+
 function toggleTheme() {
   document.body.classList.toggle('dark');
   safeSet(THEME_KEY, document.body.classList.contains('dark') ? 'dark' : 'light');
   updateThemeButton();
   applyThemeMeta();
 }
+
 function updateThemeButton() {
   const btn = document.querySelector('.theme-toggle');
   if (btn) {
@@ -44,10 +46,6 @@ function updateThemeButton() {
     btn.setAttribute('title', isDark ? 'Светлая тема' : 'Тёмная тема');
   }
 }
-document.addEventListener('DOMContentLoaded', () => {
-  const btn = document.querySelector('.theme-toggle');
-  if (btn) btn.addEventListener('click', toggleTheme);
-});
 
 // Анимации появления
 const prefersReduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
@@ -203,3 +201,192 @@ if (!prefersReduced && 'IntersectionObserver' in window) {
     }
   });
 })();
+
+// ===== МОБИЛЬНОЕ МЕНЮ =====
+function initMobileMenu() {
+  const toggle = document.querySelector('.mobile-toggle');
+  const nav = document.querySelector('.site-nav');
+  
+  if (!toggle || !nav) return;
+
+  // Функция для закрытия меню
+  function closeMenu() {
+    nav.classList.remove('active');
+    toggle.classList.remove('active');
+    toggle.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
+  // Функция для открытия меню
+  function openMenu() {
+    nav.classList.add('active');
+    toggle.classList.add('active');
+    toggle.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+
+  // Переключение меню по клику на гамбургер
+  toggle.addEventListener('click', () => {
+    const isActive = nav.classList.contains('active');
+    if (isActive) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
+  });
+
+  // Закрываем меню при клике на любую ссылку в навигации
+  nav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', closeMenu);
+  });
+
+  // Закрываем меню при изменении размера экрана (например, поворот устройства)
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 768) {
+      closeMenu();
+    }
+  });
+
+  // Закрываем меню при клике вне его области (только на мобильных)
+  document.addEventListener('click', (e) => {
+    if (window.innerWidth <= 768 && 
+        nav.classList.contains('active') && 
+        !nav.contains(e.target) && 
+        !toggle.contains(e.target)) {
+      closeMenu();
+    }
+  });
+
+  // Закрываем меню по Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && nav.classList.contains('active')) {
+      closeMenu();
+      toggle.focus(); // Возвращаем фокус на кнопку меню
+    }
+  });
+
+  // Улучшенная навигация с клавиатуры в меню
+  nav.addEventListener('keydown', (e) => {
+    if (!nav.classList.contains('active')) return;
+
+    const menuItems = nav.querySelectorAll('a, button');
+    const currentIndex = Array.from(menuItems).indexOf(document.activeElement);
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      const nextIndex = (currentIndex + 1) % menuItems.length;
+      menuItems[nextIndex].focus();
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      const prevIndex = currentIndex === 0 ? menuItems.length - 1 : currentIndex - 1;
+      menuItems[prevIndex].focus();
+    } else if (e.key === 'Home') {
+      e.preventDefault();
+      menuItems[0].focus();
+    } else if (e.key === 'End') {
+      e.preventDefault();
+      menuItems[menuItems.length - 1].focus();
+    }
+  });
+}
+
+// ===== ИНИЦИАЛИЗАЦИЯ ВСЕХ ФУНКЦИЙ =====
+document.addEventListener('DOMContentLoaded', () => {
+  // Инициализация переключателя темы
+  const themeBtn = document.querySelector('.theme-toggle');
+  if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
+
+  // Инициализация мобильного меню
+  initMobileMenu();
+
+  // Плавная прокрутка к якорям (улучшенная для мобильных)
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        // Учитываем высоту фиксированной шапки
+        const headerHeight = document.querySelector('.site-header').offsetHeight;
+        const targetPosition = target.offsetTop - headerHeight - 10; // 10px отступ
+        
+        window.scrollTo({
+          top: targetPosition,
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
+
+  // Обновление активной ссылки в навигации при скролле
+  function updateActiveNavLink() {
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.site-nav a[href^="#"]');
+    
+    let current = '';
+    const headerHeight = document.querySelector('.site-header').offsetHeight;
+    
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop - headerHeight - 50;
+      const sectionHeight = section.offsetHeight;
+      
+      if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+        current = section.getAttribute('id');
+      }
+    });
+    
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === `#${current}`) {
+        link.classList.add('active');
+      }
+    });
+  }
+
+  // Обновляем активную ссылку при скролле (с троттлингом для производительности)
+  let scrollTimer = null;
+  window.addEventListener('scroll', () => {
+    if (scrollTimer !== null) {
+      clearTimeout(scrollTimer);
+    }
+    scrollTimer = setTimeout(updateActiveNavLink, 150);
+  });
+
+  // Инициализация активной ссылки при загрузке
+  updateActiveNavLink();
+});
+
+// ===== УТИЛИТЫ ДЛЯ УЛУЧШЕНИЯ UX НА МОБИЛЬНЫХ =====
+
+// Предотвращение случайного зума при двойном тапе на iOS
+let lastTouchEnd = 0;
+document.addEventListener('touchend', function (event) {
+  const now = (new Date()).getTime();
+  if (now - lastTouchEnd <= 300) {
+    event.preventDefault();
+  }
+  lastTouchEnd = now;
+}, false);
+
+// Улучшение производительности скролла на мобильных
+let ticking = false;
+function updateScrollbar() {
+  const scrollbar = document.querySelector('.scrollbar');
+  if (scrollbar) {
+    const winHeight = window.innerHeight;
+    const docHeight = document.documentElement.scrollHeight;
+    const scrollTop = window.scrollY;
+    const scrollPercent = scrollTop / (docHeight - winHeight);
+    scrollbar.style.transform = `scaleY(${scrollPercent})`;
+  }
+  ticking = false;
+}
+
+window.addEventListener('scroll', () => {
+  if (!ticking) {
+    requestAnimationFrame(updateScrollbar);
+    ticking = true;
+  }
+});
+
+// Инициализация скроллбара при загрузке
+document.addEventListener('DOMContentLoaded', updateScrollbar);
