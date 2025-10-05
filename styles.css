@@ -523,8 +523,32 @@ dialog.info-modal::backdrop { background: rgba(0,0,0,.45); backdrop-filter: blur
 }
 .modal-title { font-weight: 800; margin: 0; color: var(--text); }
 .modal-close {
-  appearance: none; border: none; background: transparent; cursor: pointer;
-  font-size: 20px; padding: 6px; line-height: 1; color: var(--text);
+  appearance: none; 
+  border: none; 
+  background: transparent; 
+  cursor: pointer;
+  font-size: 20px; 
+  padding: 6px; 
+  line-height: 1; 
+  color: var(--text);
+  outline: none; /* Убираем стандартный outline */
+  border-radius: 4px;
+  transition: background .2s ease, color .2s ease;
+}
+
+.modal-close:hover {
+  background: color-mix(in srgb, var(--accent-weak), transparent 30%);
+}
+
+.modal-close:focus-visible {
+  outline: none;
+  background: color-mix(in srgb, var(--accent-weak), transparent 50%);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--text), transparent 80%);
+}
+
+.modal-close:active {
+  background: color-mix(in srgb, var(--accent-weak), transparent 20%);
+  transform: scale(0.95);
 }
 .modal-body { padding: 0; }
 .modal-cover {
