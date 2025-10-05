@@ -290,6 +290,150 @@ function initMobileMenu() {
   });
 }
 
+// ===== УЛУЧШЕННЫЙ ФУНКЦИОНАЛ EMAIL КНОПКИ =====
+function initEmailButton() {
+  const copyBtn = document.querySelector('.copy-email-btn');
+  const emailBtn = document.querySelector('.email-btn');
+  
+  if (copyBtn) {
+    const email = copyBtn.getAttribute('data-email');
+    
+    // Добавляем email в тултип основной кнопки
+    if (emailBtn && email) {
+      emailBtn.setAttribute('data-email', email);
+    }
+    
+    copyBtn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      
+      try {
+        // Современный способ копирования
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(email);
+          showCopyNotification(copyBtn, 'Email скопирован!');
+        } else {
+          // Fallback для старых браузеров
+          const textArea = document.createElement('textarea');
+          textArea.value = email;
+          textArea.style.position = 'fixed';
+          textArea.style.left = '-999999px';
+          textArea.style.top = '-999999px';
+          document.body.appendChild(textArea);
+          textArea.focus();
+          textArea.select();
+          
+          const successful = document.execCommand('copy');
+          document.body.removeChild(textArea);
+          
+          if (successful) {
+            showCopyNotification(copyBtn, 'Email скопирован!');
+          } else {
+            showCopyNotification(copyBtn, 'Не удалось скопировать');
+          }
+        }
+      } catch (err) {
+        console.error('Ошибка копирования:', err);
+        showCopyNotification(copyBtn, 'Ошибка копирования');
+        
+        // Fallback - показываем email в alert для ручного копирования
+        setTimeout(() => {
+          alert(`Скопируйте email вручную: ${email}`);
+        }, 1000);
+      }
+    });
+    
+    // Добавляем визуальную обратную связь при наведении
+    copyBtn.addEventListener('mouseenter', () => {
+      copyBtn.style.transform = 'scale(1.05)';
+    });
+    
+    copyBtn.addEventListener('mouseleave', () => {
+      copyBtn.style.transform = '';
+    });
+  }
+  
+  // Улучшаем основную email кнопку
+  if (emailBtn) {
+    emailBtn.addEventListener('click', (e) => {
+      // Проверяем, поддерживается ли mailto
+      if (!window.location.protocol.startsWith('http')) {
+        return; // В file:// протоколе mailto может не работать
+      }
+      
+      // Добавляем аналитику клика (если нужно)
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'email_click', {
+          'event_category': 'contact',
+          'event_label': 'email_button'
+        });
+      }
+      
+      // Добавляем визуальную обратную связь
+      emailBtn.style.transform = 'translateY(1px)';
+      setTimeout(() => {
+        emailBtn.style.transform = '';
+      }, 150);
+    });
+    
+    // Проверка доступности mailto на загрузке
+    const testMailto = () => {
+      const isFileProtocol = window.location.protocol === 'file:';
+      const hasMailClient = navigator.userAgent.includes('Mobile') ? 
+        true : // На мобильных обычно есть почтовые клиенты
+        !!(window.navigator.msSaveOrOpenBlob || window.navigator.msSaveBlob); // Примерная проверка
+      
+      if (isFileProtocol) {
+        emailBtn.setAttribute('title', 'Email: zlatislava1395@icloud.com (откройте сайт в браузере для автоматического открытия почты)');
+      }
+    };
+    
+    testMailto();
+  }
+}
+
+function showCopyNotification(button, message) {
+  // Удаляем существующее уведомление если есть
+  const existingNotification = button.querySelector('.copy-notification');
+  if (existingNotification) {
+    existingNotification.remove();
+  }
+  
+  // Создаем новое уведомление
+  const notification = document.createElement('div');
+  notification.className = 'copy-notification';
+  notification.textContent = message;
+  notification.setAttribute('role', 'alert');
+  notification.setAttribute('aria-live', 'polite');
+  button.appendChild(notification);
+  
+  // Показываем уведомление с анимацией
+  requestAnimationFrame(() => {
+    notification.classList.add('show');
+  });
+  
+  // Добавляем звуковую обратную связь (опционально)
+  if (message.includes('скопирован')) {
+    // Можно добавить тихий звук успеха если нужно
+    // new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBzuY3u/BcSUSMLPh8teEOgYZa7zs4Z9UFQ1OqeHws2YdCDOd2+7NeSsFJYLB7t2QQwwTaLXn7dSHOwkgaur05VYcB0fD5fu3XycIHXS98tm9cCQNQKDc5V4cCT+6Xc...').play().catch(()=>{}); // Пример короткого звука
+  }
+  
+  // Скрываем через 2.5 секунды
+  setTimeout(() => {
+    notification.classList.remove('show');
+    setTimeout(() => {
+      if (notification.parentNode) {
+        notification.remove();
+      }
+    }, 300);
+  }, 2500);
+  
+  // Анимация кнопки копирования
+  button.style.transform = 'scale(0.95)';
+  setTimeout(() => {
+    button.style.transform = '';
+  }, 100);
+}
+
 // ===== ИНИЦИАЛИЗАЦИЯ ВСЕХ ФУНКЦИЙ =====
 document.addEventListener('DOMContentLoaded', () => {
   // Инициализация переключателя темы
@@ -298,6 +442,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Инициализация мобильного меню
   initMobileMenu();
+  
+  // Инициализация улучшенной email кнопки
+  initEmailButton();
 
   // Плавная прокрутка к якорям (улучшенная для мобильных)
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -390,3 +537,45 @@ window.addEventListener('scroll', () => {
 
 // Инициализация скроллбара при загрузке
 document.addEventListener('DOMContentLoaded', updateScrollbar);
+
+// ===== ДОПОЛНИТЕЛЬНЫЕ УЛУЧШЕНИЯ =====
+
+// Проверка онлайн/офлайн статуса
+window.addEventListener('online', () => {
+  const liveRegion = document.getElementById('live');
+  if (liveRegion) {
+    liveRegion.textContent = 'Соединение восстановлено';
+    setTimeout(() => liveRegion.textContent = '', 3000);
+  }
+});
+
+window.addEventListener('offline', () => {
+  const liveRegion = document.getElementById('live');
+  if (liveRegion) {
+    liveRegion.textContent = 'Нет соединения с интернетом';
+  }
+});
+
+// Улучшение доступности: уведомления для скрин-ридеров
+function announceToScreenReader(message) {
+  const liveRegion = document.getElementById('live');
+  if (liveRegion) {
+    liveRegion.textContent = message;
+    setTimeout(() => liveRegion.textContent = '', 1000);
+  }
+}
+
+// Сохранение позиции скролла при перезагрузке
+window.addEventListener('beforeunload', () => {
+  safeSet('scrollPosition', window.scrollY.toString());
+});
+
+window.addEventListener('load', () => {
+  const savedPosition = safeGet('scrollPosition');
+  if (savedPosition) {
+    setTimeout(() => {
+      window.scrollTo(0, parseInt(savedPosition, 10));
+      localStorage.removeItem('scrollPosition');
+    }, 100);
+  }
+});
