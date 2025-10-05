@@ -487,7 +487,7 @@ function showEmailHint(button) {
     white-space: nowrap;
     z-index: 1000;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.15s ease; /* Ускорено с 0.3s до 0.15s */
     pointer-events: none;
     box-shadow: 0 8px 20px rgba(0,0,0,0.2);
   `;
@@ -507,7 +507,7 @@ function showEmailHint(button) {
       if (hint.parentNode) {
         hint.remove();
       }
-    }, 300);
+    }, 150); /* Ускорено с 300 до 150 */
   }, 4000);
 }
 
@@ -523,11 +523,45 @@ document.addEventListener('DOMContentLoaded', () => {
   // Инициализация улучшенной email кнопки (минималистичная)
   initEnhancedEmailButton();
 
-  // Плавная прокрутка к якорям (улучшенная для мобильных)
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  // ===== ВОЗВРАТ К НАЧАЛУ ПО КЛИКУ НА BRAND (ZL) =====
+  const brandLink = document.querySelector('.brand');
+  if (brandLink) {
+    brandLink.addEventListener('click', function(e) {
+      e.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+      
+      // Визуальная обратная связь
+      brandLink.style.transform = 'scale(0.95)';
+      setTimeout(() => {
+        brandLink.style.transform = '';
+      }, 150);
+      
+      // Уведомляем скрин-ридеры
+      announceToScreenReader('Переход к началу страницы');
+    });
+    
+    // Добавляем доступность с клавиатуры
+    brandLink.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        brandLink.click();
+      }
+    });
+  }
+
+  // Плавная прокрутка к якорям (исключаем brand)
+  document.querySelectorAll('a[href^="#"]:not(.brand)').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
       e.preventDefault();
-      const target = document.querySelector(this.getAttribute('href'));
+      const targetId = this.getAttribute('href');
+      
+      // Пропускаем если это просто #
+      if (targetId === '#') return;
+      
+      const target = document.querySelector(targetId);
       if (target) {
         // Учитываем высоту фиксированной шапки
         const headerHeight = document.querySelector('.site-header').offsetHeight;

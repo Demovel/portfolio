@@ -807,7 +807,7 @@ dialog.info-modal::backdrop { background: rgba(0,0,0,.45); backdrop-filter: blur
 .email-btn-enhanced {
   position: relative;
 }
-/* ====== EMAIL КНОПКИ ====== */
+/* ====== EMAIL КНОПКИ (УСКОРЕННАЯ АНИМАЦИЯ) ====== */
 .email-btn-enhanced::after {
   content: attr(data-email);
   position: absolute;
@@ -822,7 +822,7 @@ dialog.info-modal::backdrop { background: rgba(0,0,0,.45); backdrop-filter: blur
   white-space: nowrap;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.2s ease;
+  transition: opacity 0.1s ease; /* Уменьшено с 0.2s до 0.1s */
   z-index: 100;
 }
 
@@ -835,10 +835,32 @@ dialog.info-modal::backdrop { background: rgba(0,0,0,.45); backdrop-filter: blur
   border: 6px solid transparent;
   border-top-color: var(--text);
   opacity: 0;
-  transition: opacity 0.2s ease;
+  transition: opacity 0.1s ease; /* Уменьшено с 0.2s до 0.1s */
 }
 
 .email-btn-enhanced:hover::after,
 .email-btn-enhanced:hover::before {
   opacity: 1;
 }
+
+/* Улучшение для brand ссылки - визуальная обратная связь */
+.brand {
+  font-weight: 800; 
+  letter-spacing: 1px; 
+  font-size: 20px;
+  padding: 8px 10px; 
+  border: 2px solid var(--text); 
+  border-radius: 10px;
+  transition: transform 0.2s ease, opacity 0.2s ease; /* Добавлена анимация */
+  cursor: pointer; /* Явно указываем cursor */
+}
+
+.brand:hover {
+  transform: translateY(-1px);
+  opacity: 0.9;
+}
+
+.brand:active {
+  transform: translateY(1px);
+}
+
