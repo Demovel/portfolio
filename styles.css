@@ -8,7 +8,6 @@
   --accent-weak: #e9e9e9;
   --elev: 0 10px 28px rgba(0,0,0,0.08);
   --radius: 16px;
-  --img-filter: none;
 
   --link: var(--text);
   --link-hover: #3a3a3a;
@@ -20,7 +19,6 @@ body.dark {
   --card-bg: #121212;
   --accent: #ededed;
   --accent-weak: #2a2a2a;
-  --img-filter: brightness(0.95) contrast(1.05);
 
   --link: var(--accent);
   --link-hover: #cfcfcf;
@@ -97,26 +95,10 @@ a:hover { color: var(--link-hover); }
 .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
 
 .hero-col--visual img {
-  width: 100%; 
-  height: auto; 
-  border-radius: 18px;
+  width: 100%; height: auto; border-radius: 18px;
   box-shadow: var(--elev);
   object-fit: cover;
   aspect-ratio: 4 / 5;
-  /* Улучшения для качества изображения */
-  image-rendering: high-quality;
-  image-rendering: -webkit-optimize-contrast;
-  backface-visibility: hidden;
-  transform: translateZ(0);
-  filter: var(--img-filter);
-  will-change: transform;
-}
-
-/* Для высоких разрешений */
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  .hero-col--visual img {
-    image-rendering: -webkit-optimize-contrast;
-  }
 }
 
 /* Вертикальный рейл в духе monopo */
@@ -463,86 +445,4 @@ dialog.info-modal::backdrop { background: rgba(0,0,0,.45); backdrop-filter: blur
 .modal-content .more-row .btn--more {
   align-self: center;
   margin-top: 0;
-}
-
-/* ====== МОБИЛЬНЫЕ УЛУЧШЕНИЯ ====== */
-
-/* Улучшенные медиазапросы для мобильных устройств */
-@media (max-width: 480px) {
-  .container { 
-    width: min(1200px, 95vw); 
-    padding: 0 16px; 
-  }
-  
-  .hero-grid {
-    padding: clamp(24px, 6vw, 60px) 0;
-    gap: clamp(20px, 3vw, 40px);
-  }
-  
-  .hero-title {
-    font-size: clamp(32px, 8vw, 48px);
-    line-height: 1.1;
-  }
-  
-  .hero-subtitle {
-    font-size: clamp(14px, 1.6vw, 18px);
-    margin: 12px 0 20px;
-  }
-  
-  .site-nav {
-    gap: 16px;
-  }
-  
-  .site-nav a {
-    font-size: 14px;
-  }
-}
-
-/* Для очень маленьких экранов */
-@media (max-width: 375px) {
-  .hero-title {
-    font-size: clamp(28px, 7vw, 40px);
-  }
-  
-  .brand {
-    font-size: 18px;
-    padding: 6px 8px;
-  }
-  
-  .theme-toggle {
-    padding: 4px 8px;
-    font-size: 14px;
-  }
-}
-
-/* iPhone 14/15 и подобные */
-@media (max-width: 430px) and (min-width: 390px) {
-  .hero-col--visual img {
-    aspect-ratio: 3 / 4; /* Более подходящий ratio для мобильных */
-  }
-  
-  .work-grid {
-    gap: 16px;
-  }
-  
-  .work-card {
-    padding: 20px;
-    min-height: 240px;
-  }
-}
-
-/* Улучшения для touch устройств */
-@media (hover: none) and (pointer: coarse) {
-  .btn {
-    min-height: 44px; /* Минимальный размер для touch */
-    padding: 14px 18px;
-  }
-  
-  .work-card {
-    transition: none; /* Убираем hover эффекты */
-  }
-  
-  .work-card:active {
-    transform: scale(0.98);
-  }
 }
