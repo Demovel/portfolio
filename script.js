@@ -47,6 +47,25 @@ function updateThemeButton() {
   }
 }
 
+function initResumeDownload() {
+  const resumeBtn = document.querySelector('.resume-download');
+  if (!resumeBtn) return;
+
+  const extraDownload = resumeBtn.getAttribute('data-extra-download');
+  if (!extraDownload) return;
+
+  resumeBtn.addEventListener('click', () => {
+    const link = document.createElement('a');
+    link.href = extraDownload;
+    link.download = extraDownload;
+    link.style.display = 'none';
+
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  });
+}
+
 // Анимации появления
 const prefersReduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 if (!prefersReduced && 'IntersectionObserver' in window) {
@@ -516,6 +535,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // Инициализация переключателя темы
   const themeBtn = document.querySelector('.theme-toggle');
   if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
+
+  // Скачивание резюме вместе с рекомендательным письмом
+  initResumeDownload();
 
   // Инициализация мобильного меню
   initMobileMenu();
